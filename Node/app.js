@@ -29,6 +29,32 @@ app.post("/create_user", async (req, res) => {
   console.log(req.body);
 });
 
+app.post("/find_user", async (req, res) => {
+  try {
+    var email = req.body.email;
+    var myUser = await User.findOne({
+      email: email,
+    });
+  } catch (error) {
+    res.send({ message: error });
+  }
+  console.log(myUser);
+});
+
+app.post("/delete_user", async (req, res) => {
+  try {
+    var email = req.body.email;
+    var myUser = await User.findOne({
+      email: email,
+    })
+      .remove()
+      .exec();
+  } catch (error) {
+    res.send({ message: error });
+  }
+  console.log(myUser);
+});
+
 mongoose.connect(process.env.DB_CONNECTION).then(() => {
   console.log("mongodb connected");
 });
