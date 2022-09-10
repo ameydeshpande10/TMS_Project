@@ -9,16 +9,7 @@ const User = require("./model/user");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.send("First request!!!!");
-});
-
-app.get("/users", (req, res) => {
-  let users = ["amey", "jetha", "nezuko"];
-  res.send({ users: users });
-});
-
-app.post("/create_user", async (req, res) => {
+app.post("/sign_up", async (req, res) => {
   try {
     const myUser = new User(req.body);
     await myUser.save();
@@ -39,6 +30,29 @@ app.post("/find_user", async (req, res) => {
     res.send({ message: error });
   }
   console.log(myUser);
+  res.send(myUser);
+  res.end();
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    var email = req.body.email;
+    var password = req.body.password;
+    var myUser = await User.findOne({
+      email: email,
+    });
+    if (myUser.password == password) {
+      console.log("login sucessfull");
+      console.log(myUser);
+      res.send(myUser);
+    } else {
+      res.send("password is not correct");
+    }
+  } catch (error) {
+    res.send({ message: error });
+  }
+
+  res.end();
 });
 
 app.post("/delete_user", async (req, res) => {
@@ -53,6 +67,7 @@ app.post("/delete_user", async (req, res) => {
     res.send({ message: error });
   }
   console.log(myUser);
+  res.end();
 });
 
 mongoose.connect(process.env.DB_CONNECTION).then(() => {
