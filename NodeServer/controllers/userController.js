@@ -38,9 +38,13 @@ exports.login = async (req, res) => {
     if (myUser.password == password) {
       console.log("login sucessfull");
       console.log(myUser);
-      res.send(myUser);
+      res.status(200).send({
+        message: "Sucessfull login!",
+      });
     } else {
-      res.send("password is not correct");
+      res.status(200).send({
+        message: "password is not correct",
+      });
     }
   } catch (error) {
     res.send({ message: error });
