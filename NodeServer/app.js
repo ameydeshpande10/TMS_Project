@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-require("dotenv/config");
+const db = require("./config/db");
+require("dotenv").config();
 
 const User = require("./model/user");
 
@@ -70,10 +71,22 @@ app.post("/delete_user", async (req, res) => {
   res.end();
 });
 
-mongoose.connect(process.env.DB_CONNECTION).then(() => {
-  console.log("mongodb connected");
-});
+//Connecting to MongoDB atlas
+const URI = process.env.URI;
+mongoose
+  .connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB Atlas");
+  })
+  .catch((error) => console.log(error));
 
-app.listen(3000, () => {
-  console.log("Listening to 3000.");
+//db.connect;
+
+// Listening on port 3000
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Listening to ${PORT}`);
 });
