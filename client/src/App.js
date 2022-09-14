@@ -1,19 +1,13 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
+//import { Hello } from "./components/hello";
+import Login from "./components/login";
 
 function App() {
-  const [backendData, setBackendData] = useState([{}]);
-
-  useEffect(() => {
-    fetch("/api")
-      .then((Response = Response.json()))
-      .then((data) => {
-        setBackendData(data);
-      });
-  }, []);
   return (
     <div>
-      <h1> Hello, Login page</h1>
+      hi
+      <Login />
     </div>
   );
 }
