@@ -4,8 +4,7 @@ require("dotenv").config();
 
 // MongoDB atlas connection
 
-module.exports = function connect() {
-  /*
+module.exports.connect = function () {
   const URI = process.env.URI;
   mongoose
     .connect(URI, {
@@ -16,6 +15,4 @@ module.exports = function connect() {
       console.log("Connected to MongoDB Atlas");
     })
     .catch((error) => console.log(error));
-    */
-  console.log("from db.js");
 };

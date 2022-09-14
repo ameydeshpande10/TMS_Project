@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 const db = require("./config/db");
 require("dotenv").config();
 
@@ -72,18 +71,7 @@ app.post("/delete_user", async (req, res) => {
 });
 
 //Connecting to MongoDB atlas
-const URI = process.env.URI;
-mongoose
-  .connect(URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Connected to MongoDB Atlas");
-  })
-  .catch((error) => console.log(error));
-
-//db.connect;
+db.connect();
 
 // Listening on port 3000
 const PORT = process.env.PORT || 3000;
