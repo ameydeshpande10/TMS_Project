@@ -3,6 +3,8 @@ const app = express();
 const db = require("./config/db");
 require("dotenv").config();
 const userRoutes = require("./routes/userRoutes");
+const movieRoutes = require("./routes/movieRoutes");
+//const multer = require("multer");
 
 // for cross origin access
 var cors = require("cors");
@@ -12,12 +14,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/", (req, res) => {
-  res.json({ Hello: "Hello! Welcome to Ticket Managament System!" });
-});
-
 //user routes
 app.use(userRoutes);
+
+//movie routes
+app.use(movieRoutes);
 
 //Connecting to MongoDB atlas
 db.connect();
