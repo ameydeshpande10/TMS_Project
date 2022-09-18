@@ -17,4 +17,10 @@ const movie = new mongoose.Schema({
   genre: String,
   movie_length: String,
   certification: String,
+  poster_img: {
+    data: Buffer,
+    contentType: String,
+  },
 });
+
+module.exports = mongoose.model("movie", movie);
