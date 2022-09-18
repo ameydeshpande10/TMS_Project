@@ -2,7 +2,7 @@ import "../App.css";
 import React, { useState } from "react";
 import axios from "axios";
 
-function login() {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -18,12 +18,10 @@ function login() {
         })
         .then((Response) => {
           setMessage(Response.data.message);
-          //alert(Response.data.message);
-          //setStatus({ type: "sucess" });
         });
     } catch (error) {
       setMessage(Response.data.message);
-      //setStatus({ status: "failed" });
+
       console.log(error);
     }
   }
@@ -33,72 +31,65 @@ function login() {
       style={{
         backgroundColor: "white",
         margin: "10% auto",
-        boxShadow: "0px 0px 12px black",
+        boxShadow: "0px 0px 10px black",
         width: "40vw",
-        boxshadow: "0px 0px 12px black",
         padding: "35px",
       }}
-      className="container-fluid d-flex "
+      className="container-fluid d-flex justify-content-center"
     >
       <form onSubmit={postLogin}>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">
-            Email address
-          </label>
+        <div className="mb-3">
+          <label className="form-label">Email address</label>
           <input
             style={{
               backgroundColor: "whitesmoke",
-              width: "35vw",
-              padding: "20px",
+              //width: "35vw",
+              //padding: "20px",
               color: "grey",
             }}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            class="form-control "
-            id="exampleInputEmail1"
+            className="form-control "
           />
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">
-            Password
-          </label>
+        <div className="mb-3">
+          <label className="form-label ">Password</label>
           <input
             style={{
               backgroundColor: "whitesmoke",
-              width: "35vw",
-              padding: "20px",
+              //width: "35vw",
+              //padding: "20px",
               color: "grey",
             }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            class="form-control"
-            id="exampleInputPassword1"
+            className="form-control "
           />
         </div>
         <br></br>
         <button
           style={{
             width: "35vw",
-            padding: "20px",
+            padding: "10px",
           }}
           type="submit"
-          class="btn btn-primary"
+          className="btn btn-primary"
         >
-          Submit
+          Sign In
         </button>
         <br></br>
         <br></br>
-        <div class="alert " role="alert">
+        <div className="alert " role="alert">
           {message && <div>{message}</div>}
         </div>
       </form>
     </div>
   );
-}
+};
 
-export default login;
+export default Login;
 
 /*
 <div>
