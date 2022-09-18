@@ -6,7 +6,7 @@ const User = new mongoose.Schema({
   password: String,
   email: String,
   contact_number: Number,
-  date_of_birth: { type: String, default: Date },
+  date_of_birth: { type: Date },
   age: {
     type: Number,
     default: function () {
@@ -23,14 +23,15 @@ const User = new mongoose.Schema({
   ],
 });
 
-function getAge(dateString) {
+function getAge(bod) {
   var today = new Date();
-  var birthDate = new Date(dateString);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+  //var birthDate = new Date(dateString);
+  var age = today.getFullYear() - bod.getFullYear();
+  var m = today.getMonth() - bod.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < bod.getDate())) {
     age--;
   }
   return age;
 }
+
 module.exports = mongoose.model("user", User);

@@ -5,11 +5,16 @@ exports.sign_up = async (req, res) => {
   try {
     const myUser = new User(req.body);
     await myUser.save();
-    res.send(myUser);
+    console.log(myUser);
+    res.status(200).send({
+      message: "Sucessfull signup!",
+    });
+    console.log("user created!");
   } catch (error) {
     res.send({ message: error });
   }
   console.log(req.body);
+  res.end();
 };
 
 // to find user by email (pk)

@@ -77,7 +77,7 @@ const Login = () => {
           type="submit"
           className="btn btn-primary"
         >
-          Sign In
+          Sign Up
         </button>
         <br></br>
         <br></br>
