@@ -37,9 +37,9 @@ const Signup = () => {
     <div
       style={{
         backgroundColor: "white",
-        margin: "5% auto",
+        margin: "2% auto",
         boxShadow: "0px 0px 10px black",
-        width: "40vw",
+        width: "30vw",
         padding: "25px",
       }}
       className="container d-flex justify-content-center "

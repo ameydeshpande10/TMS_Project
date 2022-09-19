@@ -74,3 +74,18 @@ exports.delete_user = async (req, res) => {
   console.log(myUser);
   res.end();
 };
+
+// To get tickets
+exports.get_tickets = async (req, res) => {
+  try {
+    var email = req.body.email;
+    var myUser = await User.findOne({
+      email: email,
+    });
+    res.send(myUser.tickets);
+  } catch (error) {
+    res.send({ message: error });
+  }
+  console.log(myUser);
+  res.end();
+};

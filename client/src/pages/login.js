@@ -1,8 +1,13 @@
 import "../App.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
+import { Link, redirect } from "react-router-dom";
+
+import { UserContext } from "../App";
 
 const Login = () => {
+  const { state, dispatch } = useContext(UserContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -18,6 +23,8 @@ const Login = () => {
         })
         .then((Response) => {
           setMessage(Response.data.message);
+          dispatch({ type: "USER", payload: true });
+          redirect("/");
         });
     } catch (error) {
       setMessage(Response.data.message);
@@ -32,7 +39,7 @@ const Login = () => {
         backgroundColor: "white",
         margin: "10% auto",
         boxShadow: "0px 0px 10px black",
-        width: "40vw",
+        width: "30vw",
         padding: "35px",
       }}
       className="container-fluid d-flex justify-content-center"
@@ -71,16 +78,17 @@ const Login = () => {
         <br></br>
         <button
           style={{
-            width: "35vw",
+            width: "25vw",
             padding: "10px",
           }}
           type="submit"
           className="btn btn-primary"
         >
-          Sign Up
+          Sign In
         </button>
         <br></br>
         <br></br>
+        Not a user? <Link to="/sign-up"> Sign Up </Link>here
         <div className="alert " role="alert">
           {message && <div>{message}</div>}
         </div>
