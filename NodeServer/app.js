@@ -4,11 +4,35 @@ const db = require("./config/db");
 require("dotenv").config();
 const userRoutes = require("./routes/userRoutes");
 const movieRoutes = require("./routes/movieRoutes");
+
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 //const multer = require("multer");
 
 // for cross origin access
 var cors = require("cors");
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    key: "userid",
+    secret: "tms",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60 * 15 * 1,
+    },
+  })
+);
 
 // middleware
 app.use(express.json());

@@ -24,12 +24,12 @@ exports.find_user = async (req, res) => {
     var myUser = await User.findOne({
       email: email,
     });
+    console.log(myUser);
+    const jsonContent = JSON.stringify(myUser);
+    res.end(jsonContent);
   } catch (error) {
     res.send({ message: error });
   }
-  console.log(myUser);
-  res.send(myUser);
-  res.end();
 };
 
 // for login
@@ -42,7 +42,9 @@ exports.login = async (req, res) => {
     });
     if (myUser.password == password) {
       console.log("login sucessfull");
-      console.log(myUser);
+      //console.log(myUser);
+      req.session.user = myUser;
+      console.log(req.session.user);
       res.status(200).send({
         message: "Sucessfull login!",
       });
@@ -88,4 +90,17 @@ exports.get_tickets = async (req, res) => {
   }
   console.log(myUser);
   res.end();
+};
+
+// To get details
+exports.get_details = async (req, res) => {
+  try {
+    if (req.session.user) {
+      res.send({ loggedIn: true, user: req.session.user });
+    } else {
+      res.send({ loggedIn: false });
+    }
+  } catch (error) {
+    res.send({ message: error });
+  }
 };

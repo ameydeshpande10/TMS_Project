@@ -95,7 +95,7 @@ export const NavBtnLink = styled(Link)`
   }
 `;
 
-export const NavLogo = styled(Link)`
+export const Logo = styled(Link)`
   .logo {
     height: 100px;
     width: 180px;

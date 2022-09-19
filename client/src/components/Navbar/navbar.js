@@ -1,12 +1,5 @@
 import React, { useContext, useState } from "react";
-import {
-  Nav,
-  NavLink,
-  Bars,
-  NavMenu,
-  NavBtnLink,
-  NavLogo,
-} from "./NavbarElements";
+import { Nav, NavLink, Bars, NavMenu, NavBtnLink } from "./NavbarElements";
 
 import { UserContext } from "../../App";
 import { UserDropDown } from "./userDropDown";
@@ -78,22 +71,20 @@ const Navbar = () => {
   };
 
   return (
-    <Nav>
-      <NavLink to="/">
-        <NavLogo>
+    <>
+      <Nav>
+        <NavLink to="/">
           <img
+            style={{ height: "100px", width: "180px" }}
             className="logo"
             src={require("../../images/logo.png")}
             alt="logo"
           />
-        </NavLogo>
-      </NavLink>
-      <Bars />
-      <RenderNavbar />
-      {/* <NavBtn>
-        <NavBtnLink to="/signin">Sign In</NavBtnLink>
-      </NavBtn> */}
-    </Nav>
+        </NavLink>
+        <Bars />
+        <RenderNavbar />
+      </Nav>
+    </>
   );
 };
 

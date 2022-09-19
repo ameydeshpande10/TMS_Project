@@ -8,5 +8,6 @@ router.get("/user/find_user", userController.find_user);
 router.get("/user/delete_user", userController.delete_user);
 
 router.get("/user/get_tickets", userController.get_tickets);
+router.get("/user/login", userController.get_details);
 
 module.exports = router;
