@@ -1,18 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Nav,
   NavLink,
   Bars,
   NavMenu,
-  NavBtn,
   NavBtnLink,
   NavLogo,
 } from "./NavbarElements";
 
 import { UserContext } from "../../App";
+import { UserDropDown } from "./userDropDown";
+import { navItems } from "./userSubItems";
+import "./Dropdown.css";
 
 const Navbar = () => {
   const { state, dispatch } = useContext(UserContext);
+  const [dropDown, setDropDown] = useState(false);
+
   const RenderNavbar = () => {
     if (state) {
       return (
@@ -27,9 +31,24 @@ const Navbar = () => {
             <NavLink to="/About-us" activestyl="true">
               About Us
             </NavLink>
-            <NavLink to="/user" activestyl="true">
-              Hi! **USERNAME**
-            </NavLink>
+            <ul className="nav-items">
+              {navItems.map((item) => {
+                if (item.title === "User") {
+                  return (
+                    <li
+                      key={item.id}
+                      className={item.cName}
+                      onMouseEnter={() => setDropDown(true)}
+                      onMouseLeave={() => setDropDown(false)}
+                    >
+                      <NavLink activestyl="true">Hi! **USERNAME**</NavLink>
+                      {dropDown && <UserDropDown />}
+                    </li>
+                  );
+                }
+                return <></>;
+              })}
+            </ul>
 
             <NavBtnLink to="/logout">Logout</NavBtnLink>
           </NavMenu>
@@ -80,7 +99,30 @@ const Navbar = () => {
 
 export default Navbar;
 
-{
+/*
+
+<ul>
+              {navItems.map((item) => {
+                if (item.title === "User") {
+                  return (
+                    <li key={item.id} className={item.cName}>
+                      <NavLink to="/user" activestyl="true">
+                        Hi! **USERNAME**
+                      </NavLink>
+                      <UserDropDown />
+                    </li>
+                  );
+                }
+                return <></>;
+              })}
+            </ul>
+
+
+
+
+
+
+
   /* <NavMenu>
   <NavLink to="/Movies" activestyl="true">
     Movies
@@ -97,4 +139,3 @@ export default Navbar;
   <NavBtnLink to="/logout">Logout</NavBtnLink>
   <NavBtnLink to="/signin">Sign In</NavBtnLink>
 </NavMenu>; */
-}

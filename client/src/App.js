@@ -7,6 +7,10 @@ import Navbar from "./components/Navbar/navbar";
 import Home from "./pages/index";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+import { UserDetails } from "./pages/userDetails";
+import { UserTickets } from "./pages/userTickets";
+import { Aboutus } from "./pages/aboutus";
+import { UpcomingMovies } from "./pages/upcomingMovies";
 
 import { reducer, initialstate } from "./reducer/useReducer";
 
@@ -21,9 +25,13 @@ const App = () => {
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/" exact element={<Home />} />
+            <Route path="/Movies" exact element={<Home />} />
             <Route path="/signin" element={<Login />} />
             <Route path="/sign-up" element={<Signup />} />
+            <Route path="/user_details" element={<UserDetails />} />
+            <Route path="/user_tickets" element={<UserTickets />} />
+            <Route path="/About-us" element={<Aboutus />} />
+            <Route path="/Upcoming_Movies" element={<UpcomingMovies />} />
           </Routes>
         </Router>
       </UserContext.Provider>

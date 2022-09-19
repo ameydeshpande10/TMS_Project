@@ -1,11 +1,12 @@
 import "../App.css";
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 import { UserContext } from "../App";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { state, dispatch } = useContext(UserContext);
 
   const [email, setEmail] = useState("");
@@ -24,7 +25,7 @@ const Login = () => {
         .then((Response) => {
           setMessage(Response.data.message);
           dispatch({ type: "USER", payload: true });
-          redirect("/");
+          navigate("/Movies");
         });
     } catch (error) {
       setMessage(Response.data.message);
