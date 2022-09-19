@@ -2,7 +2,7 @@ import "../App.css";
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Link, redirect, useNavigate } from "react-router-dom";
-
+import Cookies from "js-cookie";
 import { UserContext } from "../App";
 
 const Login = () => {
@@ -23,12 +23,13 @@ const Login = () => {
           password,
         })
         .then((Response) => {
-          setMessage(Response.data.message);
+          // setMessage(Response.data.message);
+          Cookies.set("loggedIn", "true");
           dispatch({ type: "USER", payload: true });
           navigate("/Movies");
         });
     } catch (error) {
-      setMessage(Response.data.message);
+      // setMessage(Response.data.message);
 
       console.log(error);
     }

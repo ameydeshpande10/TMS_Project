@@ -4,11 +4,11 @@ const db = require("./config/db");
 require("dotenv").config();
 const userRoutes = require("./routes/userRoutes");
 const movieRoutes = require("./routes/movieRoutes");
+const jwt = require("jsonwebtoken");
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-//const multer = require("multer");
 
 // for cross origin access
 var cors = require("cors");

@@ -4,14 +4,27 @@ import { Nav, NavLink, Bars, NavMenu, NavBtnLink } from "./NavbarElements";
 import { UserContext } from "../../App";
 import { UserDropDown } from "./userDropDown";
 import { navItems } from "./userSubItems";
+import Cookies from "js-cookie";
 import "./Dropdown.css";
 
 const Navbar = () => {
-  const { state, dispatch } = useContext(UserContext);
+  // const { state, dispatch } = useContext(UserContext);
   const [dropDown, setDropDown] = useState(false);
+  const User_cookie = {
+    name: String,
+  };
+  var user = Cookies.get("user");
+  if (user) {
+    user = decodeURI(user);
+    const user_attributes = JSON.parse(user);
+    console.log(user_attributes);
+    User_cookie = {
+      name: user_attributes.name,
+    };
+  }
 
   const RenderNavbar = () => {
-    if (state) {
+    if (Cookies.get("loggedIn") == "true") {
       return (
         <>
           <NavMenu>
@@ -34,7 +47,10 @@ const Navbar = () => {
                       onMouseEnter={() => setDropDown(true)}
                       onMouseLeave={() => setDropDown(false)}
                     >
-                      <NavLink activestyl="true">Hi! **USERNAME**</NavLink>
+                      <NavLink activestyl="true">
+                        {console.log(User_cookie.name)}
+                        Hi! {User_cookie.name}
+                      </NavLink>
                       {dropDown && <UserDropDown />}
                     </li>
                   );

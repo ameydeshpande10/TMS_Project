@@ -1,5 +1,12 @@
 const User = require("../model/user");
 
+let express = require("express");
+let cookieParser = require("cookie-parser");
+const { json } = require("body-parser");
+//setup express app
+let app = express();
+
+app.use(cookieParser());
 // sign up user
 exports.sign_up = async (req, res) => {
   try {
@@ -43,8 +50,13 @@ exports.login = async (req, res) => {
     if (myUser.password == password) {
       console.log("login sucessfull");
       //console.log(myUser);
-      req.session.user = myUser;
-      console.log(req.session.user);
+      console.log(JSON.stringify(myUser));
+      const userJson = JSON.stringify(myUser);
+
+      res.cookie("user", userJson, {
+        httpOnly: true,
+      });
+      console.log(req.cookies.jwt);
       res.status(200).send({
         message: "Sucessfull login!",
       });
@@ -95,12 +107,14 @@ exports.get_tickets = async (req, res) => {
 // To get details
 exports.get_details = async (req, res) => {
   try {
-    if (req.session.user) {
-      res.send({ loggedIn: true, user: req.session.user });
-    } else {
-      res.send({ loggedIn: false });
-    }
+    res.send(req.cookie.name);
+    // if (req.session.user) {
+    //   res.send({ loggedIn: true, user: req.session.user });
+    // } else {
+    //   res.send({ loggedIn: false });
+    // }
   } catch (error) {
     res.send({ message: error });
   }
+  res.end();
 };

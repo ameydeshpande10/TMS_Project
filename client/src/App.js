@@ -3,6 +3,7 @@ import React, { createContext, useReducer } from "react";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/navbar";
+import axios from "axios";
 
 import Home from "./pages/index";
 import Login from "./pages/login";
@@ -11,11 +12,14 @@ import { UserDetails } from "./pages/userDetails";
 import { UserTickets } from "./pages/userTickets";
 import { Aboutus } from "./pages/aboutus";
 import { UpcomingMovies } from "./pages/upcomingMovies";
+import { Logout } from "./pages/logout";
 
 import { reducer, initialstate } from "./reducer/useReducer";
 
 //context api
 export const UserContext = createContext();
+
+axios.defaults.withCredentials = true;
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialstate);
@@ -32,6 +36,7 @@ const App = () => {
             <Route path="/user_tickets" element={<UserTickets />} />
             <Route path="/About-us" element={<Aboutus />} />
             <Route path="/Upcoming_Movies" element={<UpcomingMovies />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </Router>
       </UserContext.Provider>
