@@ -13,6 +13,8 @@ import { UserTickets } from "./pages/userTickets";
 import { Aboutus } from "./pages/aboutus";
 import { UpcomingMovies } from "./pages/upcomingMovies";
 import { Logout } from "./pages/logout";
+import { ForgotPassword } from "./pages/ForgotPassword";
+import { ResetPassword } from "./pages/ResetPassword";
 
 import { reducer, initialstate } from "./reducer/useReducer";
 
@@ -37,6 +39,8 @@ const App = () => {
             <Route path="/About-us" element={<Aboutus />} />
             <Route path="/Upcoming_Movies" element={<UpcomingMovies />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/forgot_password" element={<ForgotPassword />} />
+            <Route path="/reset_password" element={<ResetPassword />} />
           </Routes>
         </Router>
       </UserContext.Provider>

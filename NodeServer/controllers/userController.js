@@ -56,7 +56,8 @@ exports.login = async (req, res) => {
       res.cookie("user", userJson, {
         httpOnly: true,
       });
-      console.log(req.cookies.jwt);
+
+      //console.log(req.cookies.jwt);
       res.status(200).send({
         message: "Sucessfull login!",
       });
@@ -107,12 +108,37 @@ exports.get_tickets = async (req, res) => {
 // To get details
 exports.get_details = async (req, res) => {
   try {
-    res.send(req.cookie.name);
-    // if (req.session.user) {
-    //   res.send({ loggedIn: true, user: req.session.user });
-    // } else {
-    //   res.send({ loggedIn: false });
-    // }
+    var email = req.body.email;
+    console.log(email);
+    var myUser = await User.findOne({
+      email: email,
+    });
+    console.log(myUser);
+    const jsonContent = JSON.stringify(myUser);
+    res.end(jsonContent);
+  } catch (error) {
+    res.send({ message: error });
+  }
+  res.end();
+};
+
+//reset password
+exports.reset_password = async (req, res) => {
+  try {
+    var email = req.body.email;
+    var myUser = await User.findOne({
+      email: email,
+    });
+    if (!myUser) {
+      res.status(200).send({
+        message: "Password incorrect!",
+      });
+    } else {
+      res.status(200).send({
+        message: "Email to reset password send.",
+      });
+    }
+    console.log(myUser);
   } catch (error) {
     res.send({ message: error });
   }

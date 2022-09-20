@@ -24,7 +24,9 @@ const Login = () => {
         })
         .then((Response) => {
           // setMessage(Response.data.message);
+
           Cookies.set("loggedIn", "true");
+          Cookies.set("email", email);
           dispatch({ type: "USER", payload: true });
           navigate("/Movies");
         });
@@ -91,6 +93,8 @@ const Login = () => {
         <br></br>
         <br></br>
         Not a user? <Link to="/sign-up"> Sign Up </Link>here
+        <br></br>
+        <Link to="/forgot_password">Forgot password?</Link>
         <div className="alert " role="alert">
           {message && <div>{message}</div>}
         </div>

@@ -5,18 +5,28 @@ import { useCookies } from "react-cookie";
 
 export const UserDetails = () => {
   const [cookies, setCookie] = useCookies();
+  const [email, setEmail] = useState("");
 
-  const User_cookie = {
-    name: String,
-  };
-  var user = Cookies.get("user");
-  if (user) {
-    user = decodeURI(user);
-    const user_attributes = JSON.parse(user);
-    console.log(user_attributes);
-    User_cookie = {
-      name: user_attributes.name,
-    };
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    setEmail(Cookies.get("email"));
+  });
+
+  async function getdetails(e) {
+    e.preventDefault();
+
+    try {
+      await axios
+        .get("http://localhost:3001/user/get_details", {
+          email,
+        })
+        .then((Response) => {
+          setName(Response.data.name);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -29,7 +39,8 @@ export const UserDetails = () => {
       }}
     >
       <h1>User Details</h1>
-      {cookies.name && <p>{User_cookie.name}</p>}
+      <button onClick={getdetails}></button>
+      <h1>{name}</h1>
     </div>
   );
 };
