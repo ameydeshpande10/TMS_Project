@@ -49,7 +49,7 @@ const Login = () => {
   const RenderMessage = () => {
     if (haveMessage) {
       if (message === "Login successful") {
-        dispatch({ type: "USER", payload: true });
+        //dispatch({ type: "USER", payload: true });
         Cookies.set("loggedIn", "true");
         navigate("/Movies");
         return (

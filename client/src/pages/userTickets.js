@@ -3,7 +3,7 @@ import axios from "axios";
 import "../pages/UserTickets.css";
 
 export const UserTickets = () => {
-  const [tickets, setTickets] = useState([]);
+  const [tickets] = useState([]);
   const [hasLoaded, setHasLoaded] = useState(false);
   //const [tickets, setTickets] = useState();
   useEffect(() => {
@@ -26,7 +26,7 @@ export const UserTickets = () => {
     }
 
     getTickets();
-  }, []);
+  });
 
   const RenderTicket = () => {
     var count = 1;
