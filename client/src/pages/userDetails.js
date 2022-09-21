@@ -1,33 +1,28 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
-import { useCookies } from "react-cookie";
 
 export const UserDetails = () => {
-  const [cookies, setCookie] = useCookies();
-  const [email, setEmail] = useState("");
-
-  const [name, setName] = useState("");
+  const [user, setUser] = useState("");
 
   useEffect(() => {
-    setEmail(Cookies.get("email"));
-  });
+    async function getdetails(e) {
+      e.preventDefault();
 
-  async function getdetails(e) {
-    e.preventDefault();
-
-    try {
-      await axios
-        .get("http://localhost:3001/user/get_details", {
-          email,
-        })
-        .then((Response) => {
-          setName(Response.data.name);
-        });
-    } catch (error) {
-      console.log(error);
+      try {
+        await axios
+          .get("http://localhost:3001/user/get_details", {})
+          .then((res) =>
+            res.json().then((y) => {
+              setUser(y.user);
+            })
+          );
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+
+    getdetails();
+  }, []);
 
   return (
     <div
@@ -39,8 +34,7 @@ export const UserDetails = () => {
       }}
     >
       <h1>User Details</h1>
-      <button onClick={getdetails}></button>
-      <h1>{name}</h1>
+      {user}
     </div>
   );
 };
