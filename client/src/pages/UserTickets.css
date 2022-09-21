@@ -11,6 +11,10 @@ body {
   font-family: arial;
 }
 
+.cc {
+  width: 1200px;
+}
+
 .fl-left {
   float: left;
 }
@@ -33,7 +37,7 @@ h1 {
 
 .card {
   display: table-row;
-  width: 49%;
+  width: 500px;
   background-color: #fff;
   /* color: #989898; */
   color: black;
@@ -45,12 +49,13 @@ h1 {
 }
 
 .card + .card {
-  margin-left: 2%;
+  /* margin-left: 2%; */
 }
 
 .date {
   display: table-cell;
-  width: 25%;
+  width: 300px;
+
   position: relative;
   text-align: center;
   border-right: 2px dashed #dadde6;
@@ -60,6 +65,7 @@ h1 {
 .date:after {
   content: "";
   display: block;
+
   width: 30px;
   height: 30px;
   background-color: #dadde6;
@@ -92,7 +98,7 @@ h1 {
 .date time span:first-child {
   color: #2b2b2b;
   font-weight: 600;
-  font-size: 250%;
+  font-size: 200%;
 }
 
 .date time span:last-child {

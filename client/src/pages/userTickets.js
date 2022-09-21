@@ -12,7 +12,7 @@ export const UserTickets = () => {
         await axios
           .get("http://localhost:3001/user/get-tickets")
           .then((res) => {
-            console.log(res.data);
+            //console.log(res.data);
             //console.log(res.data.tickets.length);
             for (let index = 0; index < res.data.length; index++) {
               tickets[index] = res.data[index];
@@ -29,9 +29,10 @@ export const UserTickets = () => {
   }, []);
 
   const RenderTicket = () => {
+    var count = 1;
     return tickets.map((ticket) => (
-      <div className="container">
-        <div className="row">
+      <div className="container cc" key={count++}>
+        <div className="row ">
           <article className="card fl-left">
             <section className="date">
               <time dateTime="23th feb">
