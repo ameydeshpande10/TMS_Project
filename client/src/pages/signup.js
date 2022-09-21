@@ -1,11 +1,14 @@
 import "../App.css";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
+  const [cpassword, setCpassword] = useState("");
   const [email, setEmail] = useState("");
   const [contact_number, setContact_number] = useState("");
   const [date_of_birth, setDate_of_birth] = useState("");
@@ -16,16 +19,24 @@ const Signup = () => {
 
     try {
       await axios
-        .post("http://localhost:3001/user/sign_up", {
+        .post("http://localhost:3001/user/sign-up", {
           name,
           address,
           password,
+          cpassword,
           email,
           contact_number,
           date_of_birth,
         })
-        .then((Response) => {
-          setMessage(Response.data.message);
+        .then((res) => {
+          const exists = res.status;
+          if (exists === 422) {
+            window.alert("Invalid Registration");
+          } else if (exists === 400) {
+            window.alert("already exists");
+          } else {
+            navigate("/login");
+          }
         });
     } catch (error) {
       setMessage(Response.data.message);
@@ -75,7 +86,11 @@ const Signup = () => {
         <div className="form-row">
           <div className="form-group col-md-6">
             <label>Password</label>
-            <input type="password" className="form-control" />
+            <input
+              type="password"
+              className="form-control"
+              onChange={(e) => setCpassword(e.target.value)}
+            />
           </div>
           <div className="form-group col-md-6">
             <label>Confirm Password</label>

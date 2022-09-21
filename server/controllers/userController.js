@@ -1,27 +1,65 @@
-const User = require("../model/user");
-
+// importing modules
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 let express = require("express");
-let cookieParser = require("cookie-parser");
-const { json } = require("body-parser");
+let bodyParser = require("body-parser");
+var urlencodedParser = bodyParser.urlencoded({ extended: true });
+
+// importing from files
+const User = require("../model/user");
+const authenticate = require("../middleware/authenticate");
+
 //setup express app
 let app = express();
 
-app.use(cookieParser());
 // sign up user
-exports.sign_up = async (req, res) => {
-  try {
-    const myUser = new User(req.body);
-    await myUser.save();
-    console.log(myUser);
-    res.status(200).send({
-      message: "Sucessfull signup!",
-    });
-    console.log("user created!");
-  } catch (error) {
-    res.send({ message: error });
+exports.SignUp = async (req, res) => {
+  const {
+    name,
+    address,
+    email,
+    contact_number,
+    password,
+    cpassword,
+    date_of_birth,
+  } = req.body;
+  //check for fields validation
+  if (
+    !name ||
+    !email ||
+    !contact_number ||
+    !password ||
+    !cpassword ||
+    !date_of_birth
+  ) {
+    return res.status(422).json({ error: "please fill all required fields" });
   }
-  console.log(req.body);
-  res.end();
+  //if user is unique
+  try {
+    const userExists = await User.findOne({ email: email });
+    if (userExists) {
+      return res.status(400).json({ error: "Email already exists" });
+    } else if (password != cpassword) {
+      return res.status(422).json({ error: "Password not matching" });
+    } else {
+      //if not exists
+      const user = new User({
+        name,
+        address,
+        email,
+        contact_number,
+        password,
+        cpassword,
+        date_of_birth,
+      });
+      //calls hashing method before saving
+      await user.save();
+      res.status(201).json("user registered successfully");
+    }
+  } catch (err) {
+    console.log(err.response);
+  }
 };
 
 // to find user by email (pk)
