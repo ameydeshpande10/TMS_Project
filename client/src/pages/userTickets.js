@@ -4,6 +4,7 @@ import "../pages/UserTickets.css";
 
 export const UserTickets = () => {
   const [tickets, setTickets] = useState([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
   //const [tickets, setTickets] = useState();
   useEffect(() => {
     async function getTickets(e) {
@@ -16,7 +17,7 @@ export const UserTickets = () => {
             for (let index = 0; index < res.data.length; index++) {
               tickets[index] = res.data[index];
             }
-
+            setHasLoaded(true);
             //setTickets(res.data.tickets);
           });
       } catch (error) {
@@ -67,15 +68,17 @@ export const UserTickets = () => {
   //   ));
   // };
   // console.log(ListTickets());
-  return (
-    <div className="container">
-      <section className="container" />
-      <h1>Tickets</h1>
-      <div>
-        <RenderTicket />
+  if (hasLoaded === true) {
+    return (
+      <div className="container">
+        <section className="container" />
+        <h1>Tickets</h1>
+        <div>
+          <RenderTicket />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 /*
