@@ -33,7 +33,7 @@ export const UserTickets = () => {
     return tickets.map((ticket) => (
       <div className="container cc" key={count++}>
         <div className="row ">
-          <article className="card fl-left">
+          <article className="cards fl-left">
             <section className="date">
               <time dateTime="23th feb">
                 <span key={ticket.date}>{ticket.date}</span>
