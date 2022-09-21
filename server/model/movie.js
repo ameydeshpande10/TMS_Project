@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const movie = new mongoose.Schema({
   movie_name: String,
-  release_date: { type: String, default: Date },
+  release_date: { type: Date },
   shows: [
     {
       time: String,

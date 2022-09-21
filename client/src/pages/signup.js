@@ -35,7 +35,7 @@ const Signup = () => {
           } else if (exists === 400) {
             window.alert("already exists");
           } else {
-            navigate("/login");
+            navigate("/Movies");
           }
         });
     } catch (error) {

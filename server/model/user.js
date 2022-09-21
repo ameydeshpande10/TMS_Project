@@ -20,7 +20,7 @@ const User = new mongoose.Schema({
   tickets: [
     {
       movie: String,
-      date: { type: String, default: Date },
+      date: String,
       time_slot: String,
     },
   ],

@@ -32,4 +32,5 @@
   list-style: none;
   height: 12vh;
   display: flex;
+  z-index: 2;
 }

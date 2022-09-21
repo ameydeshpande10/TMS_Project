@@ -1,30 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Nav, NavLink, Bars, NavMenu, NavBtnLink } from "./NavbarElements";
-
-import { UserContext } from "../../App";
 import { UserDropDown } from "./userDropDown";
 import { navItems } from "./userSubItems";
 import Cookies from "js-cookie";
 import "./Dropdown.css";
+import { name } from "../../pages/login";
 
 const Navbar = () => {
   // const { state, dispatch } = useContext(UserContext);
   const [dropDown, setDropDown] = useState(false);
-  const User_cookie = {
-    name: String,
-  };
-  var user = Cookies.get("user");
-  if (user) {
-    user = decodeURI(user);
-    const user_attributes = JSON.parse(user);
-    console.log(user_attributes);
-    User_cookie = {
-      name: user_attributes.name,
-    };
+  //const [name, setName] = useState("");
+  var n = localStorage.getItem("Name");
+  if (n) {
+    let nr = n.split(" ");
+    var nrr = nr[0];
   }
 
   const RenderNavbar = () => {
-    if (Cookies.get("loggedIn") == "true") {
+    if (Cookies.get("loggedIn") === "true") {
       return (
         <>
           <NavMenu>
@@ -47,10 +40,7 @@ const Navbar = () => {
                       onMouseEnter={() => setDropDown(true)}
                       onMouseLeave={() => setDropDown(false)}
                     >
-                      <NavLink activestyl="true">
-                        {console.log(User_cookie.name)}
-                        Hi! {User_cookie.name}
-                      </NavLink>
+                      <NavLink activestyl="true">Hi! {nrr}</NavLink>
                       {dropDown && <UserDropDown />}
                     </li>
                   );
@@ -91,7 +81,7 @@ const Navbar = () => {
       <Nav>
         <NavLink to="/">
           <img
-            style={{ height: "100px", width: "180px" }}
+            style={{ height: "10vh", width: "180px" }}
             className="logo"
             src={require("../../images/logo.png")}
             alt="logo"

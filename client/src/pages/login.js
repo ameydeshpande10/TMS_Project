@@ -1,34 +1,38 @@
 import "../App.css";
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { UserContext } from "../App";
+export var [name] = "user";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useContext(UserContext);
-
+  const { dispatch } = useContext(UserContext);
+  //const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [haveMessage, setHaveMessage] = useState(false);
 
   async function postLogin(e) {
     e.preventDefault();
 
     try {
       await axios
-        .post("http://localhost:3001/user/login", {
+        .post("http://localhost:3001/user/log-in", {
           email,
           password,
         })
-        .then((Response) => {
-          // setMessage(Response.data.message);
-
-          Cookies.set("loggedIn", "true");
-          Cookies.set("email", email);
-          dispatch({ type: "USER", payload: true });
-          navigate("/Movies");
+        .then((res) => {
+          const Name = res.data.name;
+          console.log(Name);
+          setName(Name);
+          // console.log(res.data.name);
+          // console.log(res.data);
+          // console.log(res.status);
+          setMessage(res.data.message);
+          setHaveMessage(true);
         });
     } catch (error) {
       // setMessage(Response.data.message);
@@ -36,6 +40,32 @@ const Login = () => {
       console.log(error);
     }
   }
+
+  function setName(n) {
+    localStorage.setItem("Name", n);
+    name = n;
+  }
+
+  const RenderMessage = () => {
+    if (haveMessage) {
+      if (message === "Login successful") {
+        dispatch({ type: "USER", payload: true });
+        Cookies.set("loggedIn", "true");
+        navigate("/Movies");
+        return (
+          <div className="alert alert-primary " role="alert">
+            {message && <div>{message}</div>}
+          </div>
+        );
+      } else {
+        return (
+          <div className="alert alert-danger " role="alert">
+            {message && <div>{message}</div>}
+          </div>
+        );
+      }
+    }
+  };
 
   return (
     <div
@@ -95,9 +125,8 @@ const Login = () => {
         Not a user? <Link to="/sign-up"> Sign Up </Link>here
         <br></br>
         <Link to="/forgot_password">Forgot password?</Link>
-        <div className="alert " role="alert">
-          {message && <div>{message}</div>}
-        </div>
+        <RenderMessage />
+        <></>
       </form>
     </div>
   );
