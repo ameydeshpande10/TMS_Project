@@ -1,23 +1,18 @@
 const mongoose = require("mongoose");
 
 const movie = new mongoose.Schema({
-  movie_name: String,
-  release_date: { type: Date },
-  shows: [
-    {
-      time: String,
-    },
-  ],
-  actors: [
-    {
-      actor_name: String,
-    },
-  ],
+  name: String,
+  actors: String,
   director: String,
-  genre: String,
-  movie_length: String,
   certification: String,
-  poster_img: {
+  genre: String,
+  movie_length: Number,
+  release_date: Date,
+  start_date: Date,
+  end_date: Date,
+  first_show: String,
+  second_show: String,
+  poster: {
     data: Buffer,
     contentType: String,
   },

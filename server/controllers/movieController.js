@@ -1,29 +1,85 @@
-const Movie = require("../model/movie");
+const movie = require("../model/movie");
+const multer = require("multer");
+
+// storage
+const Storage = multer.diskStorage({
+  destination: "uploads",
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: Storage,
+}).single("poster");
 
 // Add movie
-exports.addMovie = async (req, res) => {
+exports.AddMovie = async (req, res) => {
   try {
-    const movie = new Movie(req.body);
-    await movie.save();
-    console.log(movie);
-    res.status(200).send({
-      message: "Movie Added Sucessfully!",
+    upload(req, res, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        const currentMovie = new movie({
+          name: req.body.name,
+          actors: req.body.actors,
+          director: req.body.director,
+          certification: req.body.certification,
+          genre: req.body.genre,
+          movie_length: req.body.movie_length,
+          release_date: req.body.release_date,
+          start_date: req.body.start_date,
+          end_date: req.body.end_date,
+          first_show: req.body.first_show,
+          second_show: req.body.second_show,
+          poster: {
+            data: req.file.filename,
+            contentType: "image/png",
+          },
+        });
+        currentMovie
+          .save()
+          .then(() => res.send("Movie added"))
+          .catch((err) => console.log(err));
+      }
     });
-    console.log("Movie Added!");
+
+    // const movie = new movie(req.body);
+    // await movie.save();
+    // console.log(movie);
+    // res.status(200).send({
+    //   message: "Movie Added Sucessfully!",
+    // });
+    // console.log("Movie Added!");
   } catch (error) {
     res.send({ message: error });
   }
-  console.log(req.body);
-  res.end();
+};
+
+// get movie by naem
+exports.GetMovie = async (req, res) => {
+  try {
+    const { movie_name } = req.params;
+    //const movie_name = req.body.movie_name;
+    console.log(movie_name);
+    var currentMovie = await movie.findOne({
+      name: movie_name,
+    });
+    console.log(currentMovie);
+    res.send(currentMovie);
+  } catch (error) {
+    res.send({ message: error });
+  }
 };
 
 // Delete movie by movie name
-exports.deleteMovie = async (req, res) => {
+exports.DeleteMovie = async (req, res) => {
   try {
     var name = req.body.movie_name;
-    var movie = await Movie.findOne({
-      name: name,
-    })
+    var movie = await movie
+      .findOne({
+        name: name,
+      })
       .remove()
       .exec();
     res.status(200).send({
