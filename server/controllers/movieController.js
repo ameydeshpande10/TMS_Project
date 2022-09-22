@@ -1,5 +1,7 @@
 const movie = require("../model/movie");
 const multer = require("multer");
+const fs = require("fs");
+var path = require("path");
 
 // storage
 const Storage = multer.diskStorage({
@@ -11,15 +13,17 @@ const Storage = multer.diskStorage({
 
 const upload = multer({
   storage: Storage,
-}).single("poster");
+}).single("testImage");
 
 // Add movie
 exports.AddMovie = async (req, res) => {
+  console.log("hit add move ap");
   try {
     upload(req, res, (err) => {
       if (err) {
         console.log(err);
       } else {
+        console.log(req.body);
         const currentMovie = new movie({
           name: req.body.name,
           actors: req.body.actors,
@@ -32,25 +36,19 @@ exports.AddMovie = async (req, res) => {
           end_date: req.body.end_date,
           first_show: req.body.first_show,
           second_show: req.body.second_show,
-          poster: {
+          image: {
             data: req.file.filename,
             contentType: "image/png",
           },
         });
-        currentMovie
-          .save()
-          .then(() => res.send("Movie added"))
-          .catch((err) => console.log(err));
+        console.log("movie created");
+        if (currentMovie) {
+          console.log("movie created");
+        }
+        currentMovie.save();
+        res.send({ message: "Movie added" });
       }
     });
-
-    // const movie = new movie(req.body);
-    // await movie.save();
-    // console.log(movie);
-    // res.status(200).send({
-    //   message: "Movie Added Sucessfully!",
-    // });
-    // console.log("Movie Added!");
   } catch (error) {
     res.send({ message: error });
   }

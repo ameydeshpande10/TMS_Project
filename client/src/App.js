@@ -15,7 +15,7 @@ import { UpcomingMovies } from "./pages/upcomingMovies";
 import { Logout } from "./pages/logout";
 import { ForgotPassword } from "./pages/ForgotPassword";
 import { ResetPassword } from "./pages/ResetPassword";
-
+import { AddMovie } from "./pages/Admin-path/AddMovie";
 import { reducer, initialstate } from "./reducer/useReducer";
 
 //context api
@@ -40,6 +40,7 @@ const App = () => {
             <Route path="/Upcoming_Movies" element={<UpcomingMovies />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/forgot_password" element={<ForgotPassword />} />
+            <Route path="/add-movie" element={<AddMovie />} />
             <Route
               path="/reset_password/:id/:token"
               element={<ResetPassword />}
