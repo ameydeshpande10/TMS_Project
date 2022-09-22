@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { createContext, useReducer, useState } from "react";
+import React, { createContext, useReducer } from "react";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/navbar";
@@ -40,7 +40,11 @@ const App = () => {
             <Route path="/Upcoming_Movies" element={<UpcomingMovies />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/forgot_password" element={<ForgotPassword />} />
-            <Route path="/reset_password" element={<ResetPassword />} />
+            <Route
+              path="/reset_password/:id/:token"
+              element={<ResetPassword />}
+            />
+            <Route path="/reset_password/" element={<ResetPassword />} />
           </Routes>
         </Router>
       </UserContext.Provider>

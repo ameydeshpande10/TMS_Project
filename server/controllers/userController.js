@@ -210,6 +210,101 @@ exports.reset_password = async (req, res) => {
   res.end();
 };
 
+// forgot password
+exports.ForgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.send({ message: "User not found!" });
+    }
+    const secret = process.env.KEY + user.password;
+    const token = jwt.sign({ email: user.email, id: user._id }, secret, {
+      expiresIn: "5m",
+    });
+    //const link = `http://localhost:5000/reset-password/${user._id}/${token}`;
+    const link = `http://localhost:3000/reset_password/${user._id}/${token}`;
+    //
+    http: var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "grp43acts@gmail.com",
+        pass: "xroxepntlakbaoyq",
+      },
+    });
+
+    var mailOptions = {
+      from: "grp43acts@gmail.com",
+      to: user.email,
+      subject: "Reset password",
+      text: link,
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+        res.end({
+          message: "Email send",
+        });
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+//router.get("/reset-password/:id/:token",
+exports.ResetPasswordGet = async (req, res) => {
+  const { id, token } = req.params;
+
+  const user = await User.findOne({ _id: id });
+  if (!user) {
+    return res.send({ message: "User not found!" });
+  } else {
+    const secret = process.env.KEY + user.password;
+    try {
+      const verify = jwt.verify(token, secret);
+      res.send({ email: verify.email, message: "verified" });
+    } catch (err) {
+      res.send("Not verified");
+    }
+  }
+};
+
+//router.post("/reset-password/:id/:token",urlencodedParser,
+exports.ResetPasswordPost = async (req, res) => {
+  const id = req.body.id;
+  const token = req.body.token;
+
+  const password = req.body.password;
+  const cpassword = req.body.cpassword;
+
+  if (password !== cpassword) {
+    console.log("password not match");
+    return res.send({ status: "Password do not match! 2" });
+  }
+  const user = await User.findOne({ _id: id });
+  if (!user) {
+    console.log("user not found");
+    return res.send({ status: "User not found! 2" });
+  }
+  const secret = process.env.KEY + user.password;
+  try {
+    const verify = jwt.verify(token, secret);
+    const encPassword = await bcrypt.hash(password, 12);
+    const encCpassword = await bcrypt.hash(cpassword, 12);
+    await User.findByIdAndUpdate(id, {
+      password: encPassword,
+      cpassword: encCpassword,
+    });
+    res.send({ email: verify.email, status: "verified 2" });
+    console.log("pass updated");
+  } catch (err) {
+    res.send("Not verified 2");
+  }
+};
+
 // update database add ticket
 exports.UpdateTicket = async (req, res) => {
   try {

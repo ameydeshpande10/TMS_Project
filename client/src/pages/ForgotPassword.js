@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -12,12 +12,13 @@ export const ForgotPassword = () => {
 
     try {
       await axios
-        .post("http://localhost:3001/user/reset_password", {
+        .post("http://localhost:3001/user/forgot-password", {
           email,
         })
         .then((Response) => {
           setMessage(Response.data.message);
-          // navigate("/reset_password");
+          navigate("/reset_password");
+          //navigate("/signin");
         });
     } catch (error) {
       // setMessage(Response.data.message);

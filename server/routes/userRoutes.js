@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+let bodyParser = require("body-parser");
+var urlencodedParser = bodyParser.urlencoded({ extended: true });
 const userController = require("../controllers/userController");
 
 router.post("/user/sign-up", userController.SignUp);
@@ -13,4 +15,23 @@ router.get("/user/details", userController.GetDetails);
 router.get("/user/reset_password", userController.reset_password);
 router.patch("/user/add-ticket", userController.UpdateTicket);
 
+//Password Reset
+router.post("/user/forgot-password", userController.ForgotPassword);
+
+router.get("/user/reset-password", userController.ResetPasswordGet);
+
+router.post(
+  "/user/reset-password",
+  urlencodedParser,
+  userController.ResetPasswordPost
+);
+
+router.get("/user/reset-password/:id/:token", userController.ResetPasswordGet);
+
 module.exports = router;
+
+// router.post(
+//   "/user/reset-password/:id/:token",
+//   urlencodedParser,
+//   userController.ResetPasswordPost
+// );
