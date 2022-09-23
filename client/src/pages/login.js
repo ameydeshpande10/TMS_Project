@@ -14,6 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [haveMessage, setHaveMessage] = useState(false);
+  const [status, setStatus] = useState("");
 
   async function postLogin(e) {
     e.preventDefault();
@@ -33,6 +34,7 @@ const Login = () => {
           // console.log(res.status);
           setMessage(res.data.message);
           setHaveMessage(true);
+          setStatus(res.status);
         });
     } catch (error) {
       // setMessage(Response.data.message);
@@ -57,6 +59,11 @@ const Login = () => {
             {message && <div>{message}</div>}
           </div>
         );
+      } else if (status === 201) {
+        console.log("Admin login successful");
+        Cookies.set("loggedIn", "true");
+        dispatch({ type: "ADMIN", payload: true });
+        navigate("/Movies");
       } else {
         return (
           <div className="alert alert-danger " role="alert">

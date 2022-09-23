@@ -35,14 +35,18 @@ app.use(
 );
 
 // middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 //user routes
 app.use(userRoutes);
 
 //movie routes
 app.use(movieRoutes);
+
+app.set("view engine", "ejs");
 
 //Connecting to MongoDB atlas
 db.connect();

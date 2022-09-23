@@ -95,8 +95,8 @@ exports.LogIn = async (req, res) => {
       if (!isMatch) {
         res.send({ message: "Invalid credentials" });
         //res.status(400).json({ error: "Invalid credentials" });
-      } else if (userLogin.work === "Admin") {
-        res.json({ message: "Admin Login successful", name: name });
+      } else if (userLogin.user_type === "Admin") {
+        res.status(201).json({ message: "Admin Login" });
         //res.status(201).json({ message: "Admin Login" });
       } else {
         var jsonContent = JSON.stringify(userLogin);

@@ -1,7 +1,10 @@
+const express = require("express");
 const movie = require("../model/movie");
 const multer = require("multer");
 const fs = require("fs");
 var path = require("path");
+const app = express();
+app.set("view engine", "ejs");
 
 // storage
 const Storage = multer.diskStorage({
@@ -54,6 +57,56 @@ exports.AddMovie = async (req, res) => {
   }
 };
 
+//router.post("/movieregister",
+exports.AddMovieS = async (req, res) => {
+  upload(req, res, (error) => {
+    if (error) {
+      console.log(error);
+    } else {
+      try {
+        const {
+          name,
+          actors,
+          director,
+          certification,
+          genre,
+          length,
+          release_date,
+          start_date,
+          end_date,
+          first_show,
+          second_show,
+          image,
+        } = req.body;
+        const newMovie = new movie({
+          name,
+          actors,
+          director,
+          certification,
+          genre,
+          length,
+          release_date,
+          start_date,
+          end_date,
+          first_show,
+          second_show,
+          image,
+          // : {
+          //     data: fs.readFileSync("uploads/" + req.file.filename),
+          //     contentType: 'image/png'
+          // }
+        });
+        //console.log(newMovie);
+        console.log("movie added successfully");
+        newMovie.save();
+        res.status(201).json("movie added successfully");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  });
+};
+
 // get movie by naem
 exports.GetMovie = async (req, res) => {
   try {
@@ -89,4 +142,34 @@ exports.DeleteMovie = async (req, res) => {
   }
   console.log(movie);
   res.end();
+};
+
+// router.get("/movies",
+exports.Movies = async (req, res) => {
+  try {
+    const movies = await movie.find();
+    res.status(200).send({ data: movies });
+  } catch (error) {
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
+
+//router.get("/moviedetails/:id",
+exports.GetMovieDetails = async (req, res) => {
+  try {
+    const movies = await movie.findById(req.params.id);
+    res.status(200).send({ data: movies });
+  } catch (error) {
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
+
+//router.delete("/delmovie/:id",
+exports.DeleteMovie = async (req, res) => {
+  try {
+    const movies = await movie.findOneAndDelete(req.params.id);
+    res.status(200).send({ data: "deleted", name: movies.name });
+  } catch (error) {
+    res.status(500).send({ message: "Internal server error" });
+  }
 };

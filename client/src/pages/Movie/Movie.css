@@ -1,0 +1,18 @@
+.card {
+    align-items: center;
+}
+
+.card_image {
+    height: 150px;
+}
+
+.card-primary {
+    background-color: red;
+    color: red;
+}
+
+.movie_cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}

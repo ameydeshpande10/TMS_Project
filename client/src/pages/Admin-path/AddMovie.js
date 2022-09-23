@@ -1,201 +1,248 @@
-import React, { useState, useRef, useCustomFetchHook } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import FileBase64 from "react-file-base64";
 
-export const AddMovie = () => {
-  const [name, setName] = useState("");
-  const [actors, setActors] = useState("");
-  const [director, setDirector] = useState("");
-  const [certification, setCertification] = useState("");
-  const [genre, setGenre] = useState("");
-  const [movie_length, setMovie_length] = useState();
-  const [release_date, setRelease_date] = useState();
-  const [start_date, setStart_date] = useState();
-  const [end_date, setEnd_date] = useState();
-  const [first_show, setFirst_show] = useState("");
-  const [second_show, setSecond_show] = useState("");
-  const [testImage, setTestImage] = useState(null);
+const AddMovie = () => {
+  //
+  const [item, setItem] = useState({
+    name: "",
+    actors: "",
+    director: "",
+    certification: "",
+    genre: "",
+    length: "",
+    release_date: "",
+    start_date: "",
+    end_date: "",
+    first_show: "",
+    second_show: "",
+    image: "",
+  });
+  // const [items, setItems] = useState([])
+  let name, value;
+  const handleInputs = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    setItem({ ...item, [name]: value, image: e.target.file });
+  };
 
-  const [message, setMessage] = useState("");
-
-  async function AddMovie(e) {
+  const postData = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("testImage", testImage);
-
-    const config = {
+    const {
+      name,
+      actors,
+      director,
+      certification,
+      genre,
+      length,
+      release_date,
+      start_date,
+      end_date,
+      first_show,
+      second_show,
+      image,
+    } = item;
+    const res = await fetch("/movieregister", {
+      method: "POST",
       headers: {
-        "content-type": "multipart/form-data",
+        "Content-Type": "application/json",
       },
-    };
-
-    try {
-      await axios
-        .post(
-          "http://localhost:3001/movie/add-movie",
-          {
-            name,
-            actors,
-            director,
-            certification,
-            genre,
-            movie_length,
-            release_date,
-            start_date,
-            end_date,
-            first_show,
-            second_show,
-            testImage: testImage,
-          },
-          config
-        )
-        .then((res) => {
-          console.log(res.data.message);
-          setMessage(res.data.message);
-        });
-    } catch (error) {
-      setMessage(Response.data.message);
-      console.log(error);
-    }
-  }
-
+      body: JSON.stringify({
+        name,
+        actors,
+        director,
+        certification,
+        genre,
+        length,
+        release_date,
+        start_date,
+        end_date,
+        first_show,
+        second_show,
+        image,
+      }),
+    });
+    const result = await res.json();
+    console.log(result);
+  };
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        margin: "2% auto",
-        boxShadow: "0px 0px 10px black",
-        width: "50vw",
-        padding: "10px",
-      }}
-      className="container d-flex justify-content-center "
-    >
-      <div className="banner ">Add Movie</div>
-      <form className="form-control" onSubmit={AddMovie}>
-        {/*onSubmit={signup}*/}
-        <div className="form-group">
-          <label>Movie Name</label>
-          <input
-            type="name"
-            className="form-control"
-            placeholder="Andaz Apna Apna"
-            onChange={(e) => setName(e.target.value)}
-          />
-          {/* onChange={(e) => setName(e.target.value)}*/}
+    <div>
+      <form className="form-control p-2" method="post">
+        <div
+          className="container d-flex justify-content-center mt-5 p-2"
+          style={{ width: "70vw" }}
+        >
+          <div className="card" style={{ width: "40vw" }}>
+            <div className="mt-2 mx-5">
+              <div className="mb-3">
+                <label className="form-label">Movie Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="name@example.com"
+                  required
+                  onChange={handleInputs}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Movie Actors</label>
+                <input
+                  type="text"
+                  name="actors"
+                  className="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="name@example.com"
+                  required
+                  onChange={handleInputs}
+                />
+              </div>
+              <div className="">
+                <label className="form-label">Movie Director</label>
+                <input
+                  type="text"
+                  name="director"
+                  className="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="name@example.com"
+                  required
+                  onChange={handleInputs}
+                />
+              </div>
+              <div className="row">
+                <div className="col">
+                  <label className="form-label">Movie Certification</label>
+                  <input
+                    type="text"
+                    name="certification"
+                    className="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="name@example.com"
+                    required
+                    onChange={handleInputs}
+                  />
+                </div>
+                <div className="col">
+                  <label className="form-label">Movie Genre</label>
+                  <input
+                    type="text"
+                    name="genre"
+                    className="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="name@example.com"
+                    required
+                    onChange={handleInputs}
+                  />
+                </div>
+                <div className="col">
+                  <label className="form-label">Movie Length</label>
+                  <input
+                    type="number"
+                    name="length"
+                    className="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="name@example.com"
+                    required
+                    onChange={handleInputs}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <label className="form-label">Movie Release Date</label>
+                  <input
+                    type="date"
+                    name="release_date"
+                    className="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="name@example.com"
+                    required
+                    onChange={handleInputs}
+                  />
+                </div>
+                <div className="col">
+                  <label className="form-label">Availabe from</label>
+                  <input
+                    type="date"
+                    name="start_date"
+                    className="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="name@example.com"
+                    required
+                    onChange={handleInputs}
+                  />
+                </div>
+                <div className="col">
+                  <label className="form-label">Available to</label>
+                  <input
+                    type="date"
+                    name="end_date"
+                    className="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="name@example.com"
+                    required
+                    onChange={handleInputs}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <label className="form-label">First Show</label>
+                  <input
+                    type="time"
+                    name="first_show"
+                    className="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="name@example.com"
+                    required
+                    onChange={handleInputs}
+                  />
+                </div>
+                <div className="col">
+                  <label className="form-label">Second Show</label>
+                  <input
+                    type="time"
+                    name="second_show"
+                    className="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="name@example.com"
+                    required
+                    onChange={handleInputs}
+                  />
+                </div>
+              </div>
+              {/* <div className="row">
+                                <input type="file" className="form-control" name="image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onChange={handleInputs} />
+                                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
+                            </div> */}
+              <br></br>
+              <div className="row">
+                <div className="col">
+                  <FileBase64
+                    type="file"
+                    multiple={false}
+                    onDone={({ base64 }) => setItem({ ...item, image: base64 })}
+                  />
+                </div>
+              </div>
+              <br></br>
+              <div className="row">
+                <div className="col">
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={postData}
+                  >
+                    Primary
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <label>Actors</label>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) => setActors(e.target.value)}
-            />
-            {/* onChange={(e) => setCpassword(e.target.value)}*/}
-          </div>
-          <div className="form-group col-md-6">
-            <label>Director</label>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) => setDirector(e.target.value)}
-            />
-            {/* onChange={(e) => setPassword(e.target.value)} */}
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <label>Certification</label>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) => setCertification(e.target.value)}
-            />
-            {/* onChange={(e) => setCpassword(e.target.value)}*/}
-          </div>
-          <div className="form-group col-md-6">
-            <label>genre</label>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) => setGenre(e.target.value)}
-            />
-            {/* onChange={(e) => setPassword(e.target.value)} */}
-          </div>
-          <div className="form-group col-md-6">
-            <label>Movie Length</label>
-            <input
-              type="Number"
-              className="form-control"
-              onChange={(e) => setMovie_length(e.target.value)}
-            />
-            {/* onChange={(e) => setPassword(e.target.value)} */}
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <label>Release Date</label>
-            <input
-              type="Date"
-              className="form-control"
-              onChange={(e) => setRelease_date(e.target.value)}
-            />
-            {/* onChange={(e) => setCpassword(e.target.value)}*/}
-          </div>
-          <div className="form-group col-md-6">
-            <label>Start Date</label>
-            <input
-              type="Date"
-              className="form-control"
-              onChange={(e) => setStart_date(e.target.value)}
-            />
-            {/* onChange={(e) => setPassword(e.target.value)} */}
-          </div>
-          <div className="form-group col-md-6">
-            <label>End Date</label>
-            <input
-              type="Date"
-              className="form-control"
-              onChange={(e) => setEnd_date(e.target.value)}
-            />
-            {/* onChange={(e) => setPassword(e.target.value)} */}
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <label>First Show</label>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) => setFirst_show(e.target.value)}
-            />
-            {/* onChange={(e) => setCpassword(e.target.value)}*/}
-          </div>
-          <div className="form-group col-md-6">
-            <label>Second Show</label>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) => setSecond_show(e.target.value)}
-            />
-            {/* onChange={(e) => setPassword(e.target.value)} */}
-          </div>
-        </div>
-        <div className="form-group">
-          <label>Poster</label>
-          <input
-            type="file"
-            className="form-control"
-            onChange={(e) => setTestImage(e.target.files[0])}
-          />
-          {/* onChange={(e) => setDate_of_birth(e.target.value.toString())} */}
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Add Movie
-        </button>
-        <div className="alert " role="alert"></div>
       </form>
     </div>
   );
 };
+
+export default AddMovie;

@@ -19,4 +19,24 @@ export const navItems = [
     path: "/user_details",
     cName: "nav_item",
   },
+  {
+    id: 2,
+    title: "Admin",
+    path: "/admin-details",
+    cName: "nav_item",
+  },
+];
+export const adminDropDown = [
+  {
+    id: 1,
+    title: "Add Movie",
+    path: "/add-movie",
+    cName: "submenu-item",
+  },
+  {
+    id: 2,
+    title: "Delete Movie",
+    path: "/delete-movie",
+    cName: "submenu-item",
+  },
 ];

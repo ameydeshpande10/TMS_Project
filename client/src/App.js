@@ -15,8 +15,11 @@ import { UpcomingMovies } from "./pages/upcomingMovies";
 import { Logout } from "./pages/logout";
 import { ForgotPassword } from "./pages/ForgotPassword";
 import { ResetPassword } from "./pages/ResetPassword";
-import { AddMovie } from "./pages/Admin-path/AddMovie";
+//import { AddMovie } from "./pages/Admin-path/AddMovieAmey";
+import AddMovie from "./pages/Admin-path/AddMovie";
 import { reducer, initialstate } from "./reducer/useReducer";
+import MovieDetails from "./pages/Movie/MovieDetails";
+import { DeleteMovie } from "./pages/Admin-path/DeleteMovie";
 
 //context api
 export const UserContext = createContext();
@@ -41,11 +44,13 @@ const App = () => {
             <Route path="/logout" element={<Logout />} />
             <Route path="/forgot_password" element={<ForgotPassword />} />
             <Route path="/add-movie" element={<AddMovie />} />
+            <Route path="/delete-movie" element={<DeleteMovie />} />
             <Route
               path="/reset_password/:id/:token"
               element={<ResetPassword />}
             />
             <Route path="/reset_password/" element={<ResetPassword />} />
+            <Route path="/moviedetails/:id" element={<MovieDetails />} />
           </Routes>
         </Router>
       </UserContext.Provider>
