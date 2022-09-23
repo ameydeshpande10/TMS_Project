@@ -1,9 +1,13 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+
+import { useParams, Link, useNavigate, NavLink } from "react-router-dom";
 import MovieDetailsIndividual from "./MovieDetailsIndividual";
 
 const MovieDetails = () => {
+  const navigate = useNavigate();
   const params = useParams();
+  const id = useParams();
+  console.log("id : " + id.id);
   const movieDetails = MovieDetailsIndividual(params);
   console.log(movieDetails);
   try {
@@ -24,6 +28,10 @@ const MovieDetails = () => {
     //     new Uint8Array(movieDetails.image.data.data)
     //         .reduce((data, byte) => data + String.fromCharCode(byte), '')
     // );
+
+    const navigateToBook = () => {
+      <NavLink to={"/book-ticket"}></NavLink>;
+    };
     return (
       <>
         <div className="conatiner p-2  d-flex justify-content-center align-items-center">
@@ -97,7 +105,11 @@ const MovieDetails = () => {
                         Released on: {release_date}
                       </label>
                     </p>
-                    <button className="btn btn-primary">Book Tickets</button>
+                    <button onClick={navigateToBook} className="btn ">
+                      <NavLink to={`/book-ticket/${id.id}`}>
+                        Book Tickets
+                      </NavLink>
+                    </button>
                   </div>
                 </div>
               </div>

@@ -99,7 +99,7 @@ exports.AddMovieS = async (req, res) => {
         //console.log(newMovie);
         console.log("movie added successfully");
         newMovie.save();
-        res.status(201).json("movie added successfully");
+        res.status(200).send({ message: "Movie added sucessfully" });
       } catch (error) {
         console.error(error);
       }
@@ -167,8 +167,11 @@ exports.GetMovieDetails = async (req, res) => {
 //router.delete("/delmovie/:id",
 exports.DeleteMovie = async (req, res) => {
   try {
-    const movies = await movie.findOneAndDelete(req.params.id);
-    res.status(200).send({ data: "deleted", name: movies.name });
+    const movies = await movie
+      .findOne({ name: req.body.movie_name })
+      .remove()
+      .exec();
+    res.status(200).send({ message: "deleted", name: movies.name });
   } catch (error) {
     res.status(500).send({ message: "Internal server error" });
   }

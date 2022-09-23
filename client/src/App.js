@@ -20,6 +20,7 @@ import AddMovie from "./pages/Admin-path/AddMovie";
 import { reducer, initialstate } from "./reducer/useReducer";
 import MovieDetails from "./pages/Movie/MovieDetails";
 import { DeleteMovie } from "./pages/Admin-path/DeleteMovie";
+import { TicketBooking } from "./pages/Ticket-Booking/TicketBooking";
 
 //context api
 export const UserContext = createContext();
@@ -51,6 +52,7 @@ const App = () => {
             />
             <Route path="/reset_password/" element={<ResetPassword />} />
             <Route path="/moviedetails/:id" element={<MovieDetails />} />
+            <Route path="/book-ticket/:id" element={<TicketBooking />} />
           </Routes>
         </Router>
       </UserContext.Provider>
