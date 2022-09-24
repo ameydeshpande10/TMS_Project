@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { UserContext } from "../App";
 export var [name] = "user";
 
-const Login = () => {
+export const Login = () => {
   const navigate = useNavigate();
   const { dispatch } = useContext(UserContext);
   //const [name, setName] = useState("");

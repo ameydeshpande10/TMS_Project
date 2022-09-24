@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FileBase64 from "react-file-base64";
 
-const AddMovie = () => {
+export const AddMovie = () => {
   //
   const [item, setItem] = useState({
     name: "",

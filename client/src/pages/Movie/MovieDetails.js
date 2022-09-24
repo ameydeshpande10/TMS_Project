@@ -3,7 +3,7 @@ import React from "react";
 import { useParams, NavLink } from "react-router-dom";
 import MovieDetailsIndividual from "./MovieDetailsIndividual";
 
-const MovieDetails = () => {
+export const MovieDetails = () => {
   const params = useParams();
   const id = useParams();
   //console.log("id : " + id.id);

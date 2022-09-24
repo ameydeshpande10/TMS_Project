@@ -1,23 +1,20 @@
 import "./App.css";
 import React, { createContext, useReducer } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
-// Axios setup
 import axios from "axios";
-axios.defaults.withCredentials = true;
 
 // Reducer
 import { reducer, initialstate } from "./reducer/useReducer";
 
 // Homepage
-import Home from "./pages/index";
+import { Home } from "./pages/index";
 
 // Navbar
-import Navbar from "./components/Navbar/navbar";
+import { Navbar } from "./components/Navbar/navbar";
 
 // User-path
-import Signup from "./pages/signup";
-import Login from "./pages/login";
+import { Signup } from "./pages/signup";
+import { Login } from "./pages/login";
 import { Logout } from "./pages/logout";
 //User-path-show-details
 import { UserDetails } from "./pages/userDetails";
@@ -30,15 +27,18 @@ import { TicketBooking } from "./pages/Ticket-Booking/TicketBooking";
 import { TicketPayment } from "./pages/Ticket-Booking/TicketPayment";
 
 // Admin-path
-import AddMovie from "./pages/Admin-path/AddMovie";
+import { AddMovie } from "./pages/Admin-path/AddMovie";
 import { DeleteMovie } from "./pages/Admin-path/DeleteMovie";
 
 // Other
 import { Aboutus } from "./pages/aboutus";
 
 // Mvoie-path
-import MovieDetails from "./pages/Movie/MovieDetails";
+import { MovieDetails } from "./pages/Movie/MovieDetails";
 import { UpcomingMovies } from "./pages/upcomingMovies";
+
+// Axios setup
+axios.defaults.withCredentials = true;
 
 //context api
 export const UserContext = createContext();

@@ -8,7 +8,7 @@ import "./Dropdown.css";
 // import { UserContext } from "../../App";
 import { AdminDropDown } from "./AdminDropDown/AdminDropDown";
 
-const Navbar = () => {
+export const Navbar = () => {
   // const { state, dispatch } = useContext(UserContext);
   const [dropDown, setDropDown] = useState(false);
   // const [hasloaded, setHasloaded] = useState(false);
