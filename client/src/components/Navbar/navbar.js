@@ -1,17 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { Nav, NavLink, Bars, NavMenu, NavBtnLink } from "./NavbarElements";
 import { UserDropDown } from "./userDropDown";
 import { navItems } from "./userSubItems";
 import Cookies from "js-cookie";
 import "./Dropdown.css";
-import { name } from "../../pages/login";
-import { UserContext } from "../../App";
+
+// import { UserContext } from "../../App";
 import { AdminDropDown } from "./AdminDropDown/AdminDropDown";
 
 const Navbar = () => {
-  const { state, dispatch } = useContext(UserContext);
+  // const { state, dispatch } = useContext(UserContext);
   const [dropDown, setDropDown] = useState(false);
-  const [hasloaded, setHasloaded] = useState(false);
+  // const [hasloaded, setHasloaded] = useState(false);
   var n = localStorage.getItem("Name");
   var adminCheck = localStorage.getItem("Admin");
   if (n) {
@@ -73,7 +73,8 @@ const Navbar = () => {
                     return (
                       <li
                         key={item.id}
-                        className={item.cName}
+                        className="nav-items"
+                        //  {item.cName}
                         onMouseEnter={() => setDropDown(true)}
                         onMouseLeave={() => setDropDown(false)}
                       >

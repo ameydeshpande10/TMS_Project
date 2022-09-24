@@ -1,15 +1,28 @@
 import React from "react";
 
-import { useParams, Link, useNavigate, NavLink } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import MovieDetailsIndividual from "./MovieDetailsIndividual";
 
 const MovieDetails = () => {
-  const navigate = useNavigate();
   const params = useParams();
   const id = useParams();
   //console.log("id : " + id.id);
   const movieDetails = MovieDetailsIndividual(params);
+  var adminCheck = localStorage.getItem("Admin");
   //console.log(movieDetails);
+
+  const RenderBookTicketButton = () => {
+    //console.log(adminCheck);
+    if (adminCheck === null) {
+      //console.log("admin");
+      return (
+        <button className="btn ">
+          <NavLink to={`/book-ticket/${id.id}`}>Book Tickets</NavLink>
+        </button>
+      );
+    }
+  };
+
   try {
     const name = movieDetails.name;
     //console.log(name);
@@ -102,11 +115,7 @@ const MovieDetails = () => {
                         Released on: {release_date}
                       </label>
                     </p>
-                    <button className="btn ">
-                      <NavLink to={`/book-ticket/${id.id}`}>
-                        Book Tickets
-                      </NavLink>
-                    </button>
+                    <RenderBookTicketButton />
                   </div>
                 </div>
               </div>
