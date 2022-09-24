@@ -14,7 +14,6 @@ export const ResetPassword = () => {
   const [message, setMessage] = useState("");
   const [verifid, setVerifid] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
-  const name = "amey";
 
   useEffect(() => {
     GetVerifid();
@@ -25,7 +24,7 @@ export const ResetPassword = () => {
       await axios
         .get(`http://localhost:3001/user/reset-password/${id}/${token}`)
         .then((res) => {
-          console.log(res.data.message);
+          console.log(res.data.status);
           if (res.data.status === "verified") {
             setVerifid(true);
             setHasLoaded(true);
@@ -50,8 +49,7 @@ export const ResetPassword = () => {
         })
         .then((Response) => {
           setMessage(Response.data.message);
-
-          navigate("/signin");
+          setTimeout(() => navigate("/signin"), 1000);
         });
     } catch (error) {
       // setMessage(Response.data.message);
@@ -138,9 +136,4 @@ export const ResetPassword = () => {
       </form>
     </div>
   );
-
-  if (hasLoaded === true) {
-  } else {
-    return <h1>Not verified</h1>;
-  }
 };

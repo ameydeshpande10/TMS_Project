@@ -16,8 +16,9 @@ export const ForgotPassword = () => {
           email,
         })
         .then((Response) => {
+          console.log(Response.data);
           setMessage(Response.data.message);
-          navigate("/reset_password");
+
           //navigate("/signin");
         });
     } catch (error) {

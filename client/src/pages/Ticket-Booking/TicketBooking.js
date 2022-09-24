@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MovieDetailsIndividual from "../Movie/MovieDetailsIndividual";
 
 export const TicketBooking = () => {
   const { id } = useParams();
-  console.log(id);
+
   const navigate = useNavigate();
   const params = useParams();
 
@@ -27,12 +27,11 @@ export const TicketBooking = () => {
         })
         .then((res) => {
           console.log(res.data);
+          navigate(`/ticket-payment/${id}`);
         });
     } catch (error) {
       console.log(error);
     }
-
-    navigate(`/ticket-payment/${id}`);
   }
 
   const movieDetails = MovieDetailsIndividual(params);
@@ -44,7 +43,7 @@ export const TicketBooking = () => {
     // const director = movieDetails.director;
     // const genre = movieDetails.genre;
     const movie_length = movieDetails.movie_length;
-    const release_date = movieDetails.release_date.split("T")[0];
+    const release_date = movieDetails.release_date; //
     // const start_date = movieDetails.start_date.split("T")[0];
     // const end_date = movieDetails.end_date.split("T")[0];
     const first_show = movieDetails.first_show;
@@ -72,10 +71,10 @@ export const TicketBooking = () => {
                     <div className="card-body">
                       <h5
                         className="card-title"
-                        style={{ "text-transform": "capitalize" }}
+                        style={{ textTransform: "capitalize" }}
                       >
                         <label className="me-2 fw-bold">Title:</label>
-                        <h2>{name}</h2>
+                        {name}
                       </h5>
                       <br></br>
 
@@ -91,7 +90,7 @@ export const TicketBooking = () => {
                         <label className="me-2 fw-bold">Release Date:</label>
                         {release_date}
                       </p>
-                      <hr class="border border-primary border-3 opacity-75"></hr>
+                      <hr className="border border-primary border-3 opacity-75"></hr>
 
                       <input
                         type="date"
@@ -99,7 +98,7 @@ export const TicketBooking = () => {
                         name="birthday"
                         onChange={(e) => setTicketDate(e.target.value)}
                       />
-                      <hr class="border border-primary border-3 opacity-75"></hr>
+                      <hr className="border border-primary border-3 opacity-75"></hr>
                       <p className="card-text">Select Time</p>
                       <div className="row">
                         <div className=" col">
@@ -134,7 +133,7 @@ export const TicketBooking = () => {
                         </div>
                       </div>
 
-                      <hr class="border border-primary border-3 opacity-75"></hr>
+                      <hr className="border border-primary border-3 opacity-75"></hr>
                       <p className="card-text">How many tickets?</p>
                       <input
                         className="form-control"
@@ -146,9 +145,6 @@ export const TicketBooking = () => {
                       <br></br>
                       <button type="submit" className="btn ">
                         Proceed to pay
-                        {/* <NavLink to={`/ticket-payment/${id.id}`}>
-                          Proceed to pay
-                        </NavLink> */}
                       </button>
                     </div>
                   </div>

@@ -22,26 +22,25 @@ const Login = () => {
     try {
       await axios
         .post("http://localhost:3001/user/log-in", {
-          email,
-          password,
+          email: email,
+          password: password,
         })
         .then((res) => {
           const Name = res.data.name;
-          //console.log(Name);
 
-          //console.log(res.status.user_type);
           setName(Name);
-          // console.log(res.data.name);
-          // console.log(res.data);
-          // console.log(res.status);
+
+          console.log(res);
+          // console.log(res.data.error);
+
           setMessage(res.data.message);
           setHaveMessage(true);
           setStatus(res.status);
         });
     } catch (error) {
-      // setMessage(Response.data.message);
-
       console.log(error);
+      setHaveMessage(true);
+      setMessage(error.response.data.error);
     }
   }
 
@@ -58,7 +57,8 @@ const Login = () => {
       if (message === "Login successful") {
         dispatch({ type: "USER", payload: true });
         Cookies.set("loggedIn", "true");
-        navigate("/Movies");
+        setTimeout(() => navigate("/Movies"), 1000);
+
         return (
           <div className="alert alert-primary " role="alert">
             {message && <div>{message}</div>}
@@ -69,7 +69,7 @@ const Login = () => {
         console.log("Admin login successful");
         Cookies.set("loggedIn", "true");
         dispatch({ type: "ADMIN", payload: true });
-        navigate("/Movies");
+        setTimeout(() => navigate("/Movies"), 1000);
       } else {
         return (
           <div className="alert alert-danger " role="alert">

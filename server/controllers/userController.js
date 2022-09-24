@@ -73,41 +73,42 @@ exports.LogIn = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
       return res.status(400).json({ error: "Please fill the data" });
-    }
-    const userLogin = await User.findOne({ email: email });
-    if (userLogin) {
-      const isMatch = await bcrypt.compare(password, userLogin.password);
-      const token = await userLogin.generateAuthToken();
-      res.cookie("jwtoken", token, {
-        expires: new Date(Date.now() + 25892000000),
-        httpOnly: true,
-      });
-      res.cookie("email", email, {
-        expires: new Date(Date.now() + 25892000000),
-        httpOnly: true,
-      });
-      jwt.sign(
-        {
-          data: email,
-        },
-        "secret",
-        { expiresIn: "1h" }
-      );
-      if (!isMatch) {
-        res.send({ message: "Invalid credentials" });
-        //res.status(400).json({ error: "Invalid credentials" });
-      } else if (userLogin.user_type === "Admin") {
-        res.status(201).json({ message: "Admin Login", user_type: "Admin" });
-        //res.status(201).json({ message: "Admin Login" });
-      } else {
-        var jsonContent = JSON.stringify(userLogin);
-        var jsonContentParsed = JSON.parse(jsonContent);
-        var name = jsonContentParsed["name"];
-
-        res.json({ message: "Login successful", name: name });
-      }
     } else {
-      res.status(400).json({ error: "Invalid credentials" });
+      const userLogin = await User.findOne({ email: email });
+      if (userLogin) {
+        const isMatch = await bcrypt.compare(password, userLogin.password);
+        const token = await userLogin.generateAuthToken();
+        res.cookie("jwtoken", token, {
+          expires: new Date(Date.now() + 25892000000),
+          httpOnly: true,
+        });
+        res.cookie("email", email, {
+          expires: new Date(Date.now() + 25892000000),
+          httpOnly: true,
+        });
+        jwt.sign(
+          {
+            data: email,
+          },
+          "secret",
+          { expiresIn: "1h" }
+        );
+        if (!isMatch) {
+          res.send({ message: "Invalid credentials" });
+          //res.status(400).json({ error: "Invalid credentials" });
+        } else if (userLogin.user_type === "Admin") {
+          res.status(201).json({ message: "Admin Login", user_type: "Admin" });
+          //res.status(201).json({ message: "Admin Login" });
+        } else {
+          var jsonContent = JSON.stringify(userLogin);
+          var jsonContentParsed = JSON.parse(jsonContent);
+          var name = jsonContentParsed["name"];
+
+          res.json({ message: "Login successful", name: name });
+        }
+      } else {
+        res.status(400).json({ error: "Invalid credentials" });
+      }
     }
   } catch (err) {
     console.log(err);
@@ -245,9 +246,10 @@ exports.ForgotPassword = async (req, res) => {
         console.log(error);
       } else {
         console.log("Email sent: " + info.response);
-        res.end({
+        res.send({
           message: "Email send",
         });
+        res.end();
       }
     });
   } catch (err) {
@@ -307,6 +309,8 @@ exports.ResetPasswordPost = async (req, res) => {
 };
 
 // update database add ticket
+let ticket;
+let otp;
 exports.UpdateTicket = async (req, res) => {
   try {
     console.log("in update ticket");
@@ -319,21 +323,67 @@ exports.UpdateTicket = async (req, res) => {
     var cmovie = await movie.findOne({
       _id: id,
     });
-    console.log("the movie is : " + cmovie.name);
-    var ticket = {
+
+    ticket = {
       movie: cmovie.name,
       date: req.body.date,
       time_slot: req.body.time_slot,
     };
 
-    //Object.assign(user, req.body);
-    user.tickets.push(ticket);
+    otp = Math.floor(100000 + Math.random() * 900000);
 
-    user.save();
-    console.log(ticket);
-    //res.send(req.body.tickets.movie);
-    res.send("ticket Added");
+    http: var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "grp43acts@gmail.com",
+        pass: "xroxepntlakbaoyq",
+      },
+    });
+
+    var mailOptions = {
+      from: "grp43acts@gmail.com",
+      to: user.email,
+      subject: "OTP payment confirmation",
+      text: otp.toString(),
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+        res.end({
+          message: "Email send",
+        });
+      }
+    });
+    res.end();
   } catch (error) {
     res.send({ message: error });
+  }
+};
+
+//confirm otp and update ticket
+exports.ConfirmOTP = async (req, res) => {
+  try {
+    var email = req.cookies.email;
+    var newOTP = req.body.otp;
+    var user = await User.findOne({
+      email: email,
+    });
+
+    if (newOTP == otp.toString()) {
+      console.log("OTP matched");
+      user.tickets.push(ticket);
+
+      user.save();
+
+      res.send({ message: "ticket Added" });
+    } else {
+      res.send({ message: "Payment Failed" });
+      console.log("OTP does NOT matched");
+    }
+    res.end();
+  } catch (error) {
+    res.end({ message: error });
   }
 };
