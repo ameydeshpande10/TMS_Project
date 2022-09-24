@@ -10,7 +10,7 @@ import { reducer, initialstate } from "./reducer/useReducer";
 import { Home } from "./pages/index";
 
 // Navbar
-import { Navbar } from "./components/Navbar/navbar";
+import { Navbar } from "./components/Navbar/Navbar";
 
 // User-path
 import { Signup } from "./pages/signup";
