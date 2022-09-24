@@ -1,32 +1,47 @@
 import "./App.css";
 import React, { createContext, useReducer } from "react";
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar/navbar";
-import axios from "axios";
 
+// Axios setup
+import axios from "axios";
+axios.defaults.withCredentials = true;
+
+// Reducer
+import { reducer, initialstate } from "./reducer/useReducer";
+
+// Homepage
 import Home from "./pages/index";
-import Login from "./pages/login";
+
+// Navbar
+import Navbar from "./components/Navbar/navbar";
+
+// User-path
 import Signup from "./pages/signup";
+import Login from "./pages/login";
+import { Logout } from "./pages/logout";
+//User-path-show-details
 import { UserDetails } from "./pages/userDetails";
 import { UserTickets } from "./pages/userTickets";
-import { Aboutus } from "./pages/aboutus";
-import { UpcomingMovies } from "./pages/upcomingMovies";
-import { Logout } from "./pages/logout";
+//User-path-password-reset
 import { ForgotPassword } from "./pages/ForgotPassword";
 import { ResetPassword } from "./pages/ResetPassword";
-//import { AddMovie } from "./pages/Admin-path/AddMovieAmey";
-import AddMovie from "./pages/Admin-path/AddMovie";
-import { reducer, initialstate } from "./reducer/useReducer";
-import MovieDetails from "./pages/Movie/MovieDetails";
-import { DeleteMovie } from "./pages/Admin-path/DeleteMovie";
+//User-path-book-ticket
 import { TicketBooking } from "./pages/Ticket-Booking/TicketBooking";
 import { TicketPayment } from "./pages/Ticket-Booking/TicketPayment";
 
+// Admin-path
+import AddMovie from "./pages/Admin-path/AddMovie";
+import { DeleteMovie } from "./pages/Admin-path/DeleteMovie";
+
+// Other
+import { Aboutus } from "./pages/aboutus";
+
+// Mvoie-path
+import MovieDetails from "./pages/Movie/MovieDetails";
+import { UpcomingMovies } from "./pages/upcomingMovies";
+
 //context api
 export const UserContext = createContext();
-
-axios.defaults.withCredentials = true;
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialstate);
