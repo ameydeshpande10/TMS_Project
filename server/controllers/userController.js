@@ -11,6 +11,7 @@ require("dotenv").config();
 
 // importing from files
 const User = require("../model/user");
+const movie = require("../model/movie");
 const authenticate = require("../middleware/authenticate");
 const cookieParser = require("cookie-parser");
 
@@ -96,7 +97,7 @@ exports.LogIn = async (req, res) => {
         res.send({ message: "Invalid credentials" });
         //res.status(400).json({ error: "Invalid credentials" });
       } else if (userLogin.user_type === "Admin") {
-        res.status(201).json({ message: "Admin Login" });
+        res.status(201).json({ message: "Admin Login", user_type: "Admin" });
         //res.status(201).json({ message: "Admin Login" });
       } else {
         var jsonContent = JSON.stringify(userLogin);
@@ -308,24 +309,30 @@ exports.ResetPasswordPost = async (req, res) => {
 // update database add ticket
 exports.UpdateTicket = async (req, res) => {
   try {
+    console.log("in update ticket");
     var email = req.cookies.email;
-
+    var id = req.body.id;
     var user = await User.findOne({
       email: email,
     });
-    var movie = {
-      movie: req.body.tickets.movie,
-      date: req.body.tickets.date,
-      time_slot: req.body.tickets.time_slot,
+    console.log(id);
+    var cmovie = await movie.findOne({
+      _id: id,
+    });
+    console.log("the movie is : " + cmovie.name);
+    var ticket = {
+      movie: cmovie.name,
+      date: req.body.date,
+      time_slot: req.body.time_slot,
     };
 
     //Object.assign(user, req.body);
-    user.tickets.push(movie);
+    user.tickets.push(ticket);
 
     user.save();
-
+    console.log(ticket);
     //res.send(req.body.tickets.movie);
-    res.send("ticket updated");
+    res.send("ticket Added");
   } catch (error) {
     res.send({ message: error });
   }

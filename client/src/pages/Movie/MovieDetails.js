@@ -7,12 +7,12 @@ const MovieDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
   const id = useParams();
-  console.log("id : " + id.id);
+  //console.log("id : " + id.id);
   const movieDetails = MovieDetailsIndividual(params);
-  console.log(movieDetails);
+  //console.log(movieDetails);
   try {
     const name = movieDetails.name;
-    console.log(name);
+    //console.log(name);
     const actors_name = movieDetails.actors;
     const certification = movieDetails.certification;
     const director = movieDetails.director;
@@ -29,9 +29,6 @@ const MovieDetails = () => {
     //         .reduce((data, byte) => data + String.fromCharCode(byte), '')
     // );
 
-    const navigateToBook = () => {
-      <NavLink to={"/book-ticket"}></NavLink>;
-    };
     return (
       <>
         <div className="conatiner p-2  d-flex justify-content-center align-items-center">
@@ -101,11 +98,11 @@ const MovieDetails = () => {
                       {second_show}
                     </p>
                     <p className="card-text">
-                      <label class="me-2 fw-bold">
+                      <label className="me-2 fw-bold">
                         Released on: {release_date}
                       </label>
                     </p>
-                    <button onClick={navigateToBook} className="btn ">
+                    <button className="btn ">
                       <NavLink to={`/book-ticket/${id.id}`}>
                         Book Tickets
                       </NavLink>

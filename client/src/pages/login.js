@@ -27,7 +27,9 @@ const Login = () => {
         })
         .then((res) => {
           const Name = res.data.name;
-          console.log(Name);
+          //console.log(Name);
+
+          //console.log(res.status.user_type);
           setName(Name);
           // console.log(res.data.name);
           // console.log(res.data);
@@ -47,6 +49,9 @@ const Login = () => {
     localStorage.setItem("Name", n);
     name = n;
   }
+  function setAdmin() {
+    localStorage.setItem("Admin", "Admin");
+  }
 
   const RenderMessage = () => {
     if (haveMessage) {
@@ -60,6 +65,7 @@ const Login = () => {
           </div>
         );
       } else if (status === 201) {
+        setAdmin();
         console.log("Admin login successful");
         Cookies.set("loggedIn", "true");
         dispatch({ type: "ADMIN", payload: true });

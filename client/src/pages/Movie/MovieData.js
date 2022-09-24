@@ -19,6 +19,6 @@ export default function MovieData() {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-  console.log(data);
+  //console.log(data);
   return data;
 }

@@ -28,9 +28,14 @@
 }
 
 .nav-items {
-  margin-top: 2%;
+  margin-top: 5%;
   list-style: none;
-  height: 12vh;
+  height: 14vh;
   display: flex;
   z-index: 2;
+}
+
+.logo {
+  height: "8vh";
+  width: "180px";
 }

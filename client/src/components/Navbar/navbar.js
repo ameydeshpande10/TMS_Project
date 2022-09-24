@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Nav, NavLink, Bars, NavMenu, NavBtnLink } from "./NavbarElements";
 import { UserDropDown } from "./userDropDown";
 import { navItems } from "./userSubItems";
@@ -11,15 +11,16 @@ import { AdminDropDown } from "./AdminDropDown/AdminDropDown";
 const Navbar = () => {
   const { state, dispatch } = useContext(UserContext);
   const [dropDown, setDropDown] = useState(false);
-  //const [name, setName] = useState("");
+  const [hasloaded, setHasloaded] = useState(false);
   var n = localStorage.getItem("Name");
+  var adminCheck = localStorage.getItem("Admin");
   if (n) {
     let nr = n.split(" ");
     var nrr = nr[0];
   }
 
   const RenderNavbar = () => {
-    if (state === 100) {
+    if (adminCheck === "Admin") {
       if (Cookies.get("loggedIn") === "true") {
         return (
           <>
@@ -118,7 +119,7 @@ const Navbar = () => {
       <Nav>
         <NavLink to="/Movies">
           <img
-            style={{ height: "10vh", width: "180px" }}
+            style={{ height: "10vh", width: "12vw" }}
             className="logo"
             src={require("../../images/logo.png")}
             alt="logo"
