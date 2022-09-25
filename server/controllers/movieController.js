@@ -127,16 +127,26 @@ exports.GetMovie = async (req, res) => {
 exports.DeleteMovie = async (req, res) => {
   try {
     var name = req.body.movie_name;
+    if (!name) {
+      return res.status(400).json({ error: "Please fill the data" });
+    }
     var movie = await movie
       .findOne({
         name: name,
       })
       .remove()
-      .exec();
-    res.status(200).send({
-      message: "Movie removed sucessfully!",
-    });
-    console.log("Movie removed!");
+      .exec()
+      .then(
+        res.status(200).send({
+          message: "Movie removed sucessfully!",
+        }),
+        console.log("Movie removed!")
+      )
+      .catch((err) => {
+        res.status(200).send({
+          message: "Error, Movie not deleted",
+        });
+      });
   } catch (error) {
     res.send({ message: error });
   }
@@ -167,11 +177,17 @@ exports.GetMovieDetails = async (req, res) => {
 //router.delete("/delmovie/:id",
 exports.DeleteMovie = async (req, res) => {
   try {
+    const name = req.body.movie_name;
+    if (!name) {
+      return res.status(400).json({ error: "Please fill the data" });
+    }
     const movies = await movie
       .findOne({ name: req.body.movie_name })
       .remove()
       .exec();
-    res.status(200).send({ message: "deleted", name: movies.name });
+    res
+      .status(200)
+      .send({ message: `${name} Movie deleted`, name: movies.name });
   } catch (error) {
     res.status(500).send({ message: "Internal server error" });
   }

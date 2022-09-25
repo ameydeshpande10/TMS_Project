@@ -1,9 +1,49 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./AdminPath.css";
+//import { ConfirmDeletePopUp } from "./ConfirmDeletePopUp";
 
 export const DeleteMovie = () => {
   const [movie_name, setMovie_name] = useState("");
   const [message, setMessage] = useState("");
+  const [buttonPopUp, setButtonPopUp] = useState("false");
+
+  const ConfirmDeletePopUp = (props) => {
+    if (props.trigger === "true") {
+      setTimeout(() => 2000);
+      return (
+        <div className="popup">
+          <div className="popup-inner">
+            {props.children}
+            <h2> you are about to delete a movie</h2>
+            <br></br>
+            <div className="row">
+              <div className="col">
+                <button
+                  className="btn btn-danger col-10"
+                  value={"false"}
+                  onClick={(e) => setButtonPopUp(e.target.value)}
+                  onClickCapture={deleteMovie}
+                >
+                  Confirm
+                </button>
+              </div>
+              <div className="col">
+                <button
+                  className="btn btn-primary col-10"
+                  value={"false"}
+                  onClick={(e) => setButtonPopUp(e.target.value)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
+
   async function deleteMovie(e) {
     e.preventDefault();
 
@@ -13,13 +53,16 @@ export const DeleteMovie = () => {
           movie_name,
         })
         .then((res) => {
-          console.log(res.data.message);
+          console.log(res);
+          //console.log(res.status);
           setMessage(res.data.message);
         });
     } catch (error) {
       console.log(error);
+      setMessage(error.response.data.error);
     }
   }
+
   return (
     <div
       style={{
@@ -31,19 +74,13 @@ export const DeleteMovie = () => {
       }}
       className="container-fluid d-flex justify-content-center"
     >
-      <form onSubmit={deleteMovie}>
-        <h5>Enter your Movie name to delete the movie </h5>
+      <form>
+        <h5>Remove Movie </h5>
         <br></br>
         <br></br>
         <div className="mb-3">
           <label className="form-label">Movie Name</label>
           <input
-            style={{
-              backgroundColor: "whitesmoke",
-              //width: "35vw",
-              //padding: "20px",
-              color: "grey",
-            }}
             value={movie_name}
             onChange={(e) => setMovie_name(e.target.value)}
             type="text"
@@ -52,18 +89,21 @@ export const DeleteMovie = () => {
         </div>
 
         <button
-          style={{
-            width: "25vw",
-            padding: "10px",
+          className="btn btn-primary col-12"
+          type="button"
+          value={"true"}
+          onClick={(e) => {
+            if (movie_name !== "") {
+              setButtonPopUp(e.target.value);
+            }
           }}
-          type="submit"
-          className="btn btn-primary"
         >
           Delete Movie
         </button>
+        <ConfirmDeletePopUp trigger={buttonPopUp}></ConfirmDeletePopUp>
 
         <div className="alert " role="alert">
-          {message && <div>{message}</div>}
+          {message && <div> {message}</div>}
         </div>
       </form>
     </div>

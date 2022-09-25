@@ -80,7 +80,6 @@ export const AddMovie = () => {
                   name="name"
                   className="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="name@example.com"
                   required
                   onChange={handleInputs}
                 />
@@ -92,7 +91,6 @@ export const AddMovie = () => {
                   name="actors"
                   className="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="name@example.com"
                   required
                   onChange={handleInputs}
                 />
@@ -104,7 +102,6 @@ export const AddMovie = () => {
                   name="director"
                   className="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="name@example.com"
                   required
                   onChange={handleInputs}
                 />
@@ -117,7 +114,6 @@ export const AddMovie = () => {
                     name="certification"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="name@example.com"
                     required
                     onChange={handleInputs}
                   />
@@ -129,7 +125,6 @@ export const AddMovie = () => {
                     name="genre"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="name@example.com"
                     required
                     onChange={handleInputs}
                   />
@@ -141,7 +136,6 @@ export const AddMovie = () => {
                     name="length"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="name@example.com"
                     required
                     onChange={handleInputs}
                   />
@@ -155,7 +149,6 @@ export const AddMovie = () => {
                     name="release_date"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="name@example.com"
                     required
                     onChange={handleInputs}
                   />
@@ -167,7 +160,6 @@ export const AddMovie = () => {
                     name="start_date"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="name@example.com"
                     required
                     onChange={handleInputs}
                   />
@@ -179,7 +171,6 @@ export const AddMovie = () => {
                     name="end_date"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="name@example.com"
                     required
                     onChange={handleInputs}
                   />
@@ -193,7 +184,6 @@ export const AddMovie = () => {
                     name="first_show"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="name@example.com"
                     required
                     onChange={handleInputs}
                   />
@@ -205,7 +195,6 @@ export const AddMovie = () => {
                     name="second_show"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="name@example.com"
                     required
                     onChange={handleInputs}
                   />
