@@ -21,6 +21,15 @@ function MovieCard(props) {
       const actors_name = data.actors;
       const director = data.director;
       const image = data.image;
+
+      var now = new Date();
+      var release_date = new Date(data.release_date);
+      //console.log("movie relese : " + release_date);
+      //console.log("now : " + now);
+      if (release_date > now) {
+        //console.log("future releses are : " + data.release_date);
+      }
+
       // console.log(image);
       var base64 = btoa(
         new Uint8Array(data.image.data).reduce(

@@ -35,7 +35,8 @@ import { Aboutus } from "./pages/aboutus";
 
 // Mvoie-path
 import { MovieDetails } from "./pages/Movie/MovieDetails";
-import { UpcomingMovies } from "./pages/upcomingMovies";
+import { UpcomingMovies } from "./pages/Movie/UpcomingMovies";
+import { UpcomingMoviesDisplay } from "./pages/Movie/UpcomingMoviesDisplay";
 
 // Axios setup
 axios.defaults.withCredentials = true;
@@ -58,6 +59,10 @@ const App = () => {
             <Route path="/user_tickets" element={<UserTickets />} />
             <Route path="/About-us" element={<Aboutus />} />
             <Route path="/Upcoming_Movies" element={<UpcomingMovies />} />
+            <Route
+              path="/upcoming-movies"
+              element={<UpcomingMoviesDisplay />}
+            />
             <Route path="/logout" element={<Logout />} />
             <Route path="/forgot_password" element={<ForgotPassword />} />
             <Route path="/add-movie" element={<AddMovie />} />

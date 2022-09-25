@@ -222,7 +222,7 @@ export const AddMovie = () => {
                     className="btn btn-primary"
                     onClick={postData}
                   >
-                    Primary
+                    Add Movie
                   </button>
                 </div>
               </div>

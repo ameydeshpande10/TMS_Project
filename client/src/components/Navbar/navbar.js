@@ -61,7 +61,7 @@ export const Navbar = () => {
               <NavLink to="/Movies" activestyl="true">
                 Movies
               </NavLink>
-              <NavLink to="/Upcoming_Movies" activestyl="true">
+              <NavLink to="/upcoming-movies" activestyl="true">
                 Upcoming Movies
               </NavLink>
               <NavLink to="/About-us" activestyl="true">
@@ -98,7 +98,7 @@ export const Navbar = () => {
               <NavLink to="/Movies" activestyl="true">
                 Movies
               </NavLink>
-              <NavLink to="/Upcoming_Movies" activestyl="true">
+              <NavLink to="/upcoming-movies" activestyl="true">
                 Upcoming Movies
               </NavLink>
               <NavLink to="/About-us" activestyl="true">

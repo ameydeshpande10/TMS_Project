@@ -1,18 +1,25 @@
 .card {
-    align-items: center;
+  align-items: center;
 }
 
 .card_image {
-    height: 150px;
+  height: 300px;
+  width: 250px;
 }
 
 .card-primary {
-    background-color: red;
-    color: red;
+  background-color: wheat;
 }
 
 .movie_cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card-body {
+  width: 25vw;
+  height: 250px;
+  text-align: center;
+  padding: 5px 5px;
 }
