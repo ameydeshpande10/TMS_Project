@@ -1,5 +1,5 @@
 import React from "react";
-
+import Cookies from "js-cookie";
 import { useParams, NavLink } from "react-router-dom";
 import MovieDetailsIndividual from "./MovieDetailsIndividual";
 
@@ -12,14 +12,15 @@ export const MovieDetails = () => {
   //console.log(movieDetails);
 
   const RenderBookTicketButton = () => {
-    //console.log(adminCheck);
+    console.log(adminCheck);
     if (adminCheck === null) {
-      //console.log("admin");
-      return (
-        <button className="btn ">
-          <NavLink to={`/book-ticket/${id.id}`}>Book Tickets</NavLink>
-        </button>
-      );
+      if (Cookies.get("loggedIn") === "true") {
+        return (
+          <button className="btn ">
+            <NavLink to={`/book-ticket/${id.id}`}>Book Tickets</NavLink>
+          </button>
+        );
+      }
     }
   };
 
