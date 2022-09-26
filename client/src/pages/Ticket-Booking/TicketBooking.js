@@ -62,13 +62,12 @@ export const TicketBooking = () => {
                   <div className="col">
                     <img
                       src={image}
-                      className="card-img-top p-2"
+                      className="card-img-top p-2 img-fluid img-thumbnail"
                       alt="..."
-                      style={{ height: "550px", width: "425px" }}
                     />
                   </div>
                   <div className="col">
-                    <div className="card-body">
+                    <div className="card-body h-50">
                       <h5
                         className="card-title"
                         style={{ textTransform: "capitalize" }}

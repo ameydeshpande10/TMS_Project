@@ -31,6 +31,7 @@ export const Navbar = () => {
 
               <ul className="nav-items">
                 {navItems.map((item) => {
+                  <div key={item}></div>;
                   if (item.title === "Admin") {
                     return (
                       <li
@@ -69,18 +70,21 @@ export const Navbar = () => {
               </NavLink>
               <ul className="nav-items">
                 {navItems.map((item) => {
+                  <div key={item}></div>;
                   if (item.title === "User") {
                     return (
-                      <li
-                        key={item.id}
-                        className="nav-items"
-                        //  {item.cName}
-                        onMouseEnter={() => setDropDown(true)}
-                        onMouseLeave={() => setDropDown(false)}
-                      >
-                        <NavLink activestyl="true">Hi! {nrr}</NavLink>
-                        {dropDown && <UserDropDown />}
-                      </li>
+                      <div key={item.title}>
+                        <li
+                          key={item.id}
+                          className="nav-items"
+                          //  {item.cName}
+                          onMouseEnter={() => setDropDown(true)}
+                          onMouseLeave={() => setDropDown(false)}
+                        >
+                          <NavLink activestyl="true">Hi! {nrr}</NavLink>
+                          {dropDown && <UserDropDown />}
+                        </li>
+                      </div>
                     );
                   }
                   return <></>;

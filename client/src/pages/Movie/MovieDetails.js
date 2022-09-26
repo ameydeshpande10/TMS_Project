@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useParams, NavLink } from "react-router-dom";
 import MovieDetailsIndividual from "./MovieDetailsIndividual";
@@ -6,27 +6,13 @@ import MovieDetailsIndividual from "./MovieDetailsIndividual";
 export const MovieDetails = () => {
   const params = useParams();
   const id = useParams();
-  //console.log("id : " + id.id);
   const movieDetails = MovieDetailsIndividual(params);
   var adminCheck = localStorage.getItem("Admin");
-  //console.log(movieDetails);
 
-  const RenderBookTicketButton = () => {
-    console.log(adminCheck);
-    if (adminCheck === null) {
-      if (Cookies.get("loggedIn") === "true") {
-        return (
-          <button className="btn ">
-            <NavLink to={`/book-ticket/${id.id}`}>Book Tickets</NavLink>
-          </button>
-        );
-      }
-    }
-  };
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   try {
     const name = movieDetails.name;
-    console.log(movieDetails.release_date.split("T")[0]);
     const actors_name = movieDetails.actors;
     const certification = movieDetails.certification;
     const director = movieDetails.director;
@@ -38,14 +24,25 @@ export const MovieDetails = () => {
     const first_show = movieDetails.first_show;
     const second_show = movieDetails.second_show;
     const image = movieDetails.image;
-    // var base64 = btoa(
-    //     new Uint8Array(movieDetails.image.data.data)
-    //         .reduce((data, byte) => data + String.fromCharCode(byte), '')
-    // );
+
+    const RenderBookTicketButton = () => {
+      let date = new Date();
+      let releaseDate = new Date(release_date);
+
+      if (adminCheck === null && releaseDate < date) {
+        if (Cookies.get("loggedIn") === "true") {
+          return (
+            <button className="btn ">
+              <NavLink to={`/book-ticket/${id.id}`}>Book Tickets</NavLink>
+            </button>
+          );
+        }
+      }
+    };
 
     return (
       <>
-        <div className="conatiner p-2  d-flex justify-content-center align-items-center">
+        <div className="conatiner p-1  d-flex justify-content-center align-items-center">
           {/*mt-5 p-2 */}
 
           <div className="conatiner  " style={{ width: "65vw" }}>
@@ -54,19 +51,20 @@ export const MovieDetails = () => {
                 <div className="col">
                   <img
                     src={image}
-                    className="card-img-top p-2"
+                    className="card-img-top p-2 card_image "
                     alt="..."
-                    style={{ height: "550px", width: "425px" }}
                   />
                 </div>
                 <div className="col">
-                  <div className="card-body">
+                  <div className="card-body h-50">
                     <h5
                       className="card-title"
-                      style={{ "text-transform": "capitalize" }}
+                      style={{ textTransform: "capitalize" }}
                     >
                       <label className="me-2 fw-bold">Title: </label>
-                      <h2>{name}</h2>
+                      <span>
+                        <h2>{name}</h2>
+                      </span>
                     </h5>
                     <br></br>
                     <p className="card-text">
@@ -91,7 +89,7 @@ export const MovieDetails = () => {
                     </p>
                     <p className="card-text">
                       <label className="me-2 fw-bold">Release Date: </label>
-                      {release_date}
+                      <span>{release_date}</span>
                     </p>
                     <p className="card-text">
                       <label className="me-2 fw-bold">
