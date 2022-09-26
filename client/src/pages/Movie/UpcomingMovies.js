@@ -42,7 +42,7 @@ export const UpcomingMovies = (props) => {
 
         return (
           <>
-            <div className="">
+            <div key={name} className="">
               <div
                 className="card mt-5 me-5 rounded"
                 style={{

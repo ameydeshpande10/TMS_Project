@@ -22,3 +22,8 @@
   height: 30vh;
   padding: 15px;
 }
+.card-body-user-details {
+  width: 25vw;
+
+  padding: 15px;
+}

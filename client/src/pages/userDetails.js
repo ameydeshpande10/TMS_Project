@@ -40,14 +40,14 @@ export const UserDetails = () => {
 
   return (
     <>
-      <div className="container py-5 h-100">
+      <div className="container-fluid">
         <section
-          className="vh-100"
+          className=""
           style={{
             backgroundColor: "#f4f5f7",
           }}
         >
-          <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="row justify-content-center align-items-center ">
             <div className="col col-lg-10 mb-4 mb-lg-0">
               <div className="card mb-3" style={{ borderRadius: ".5rem" }}>
                 <div className="row g-0">
@@ -63,7 +63,7 @@ export const UserDetails = () => {
                     <i className="far fa-edit mb-5"></i>
                   </div>
                   <div className="col-md-8">
-                    <div className="card-body p-4">
+                    <div className="card-body-user-details p-4">
                       <h6>User Information</h6>
                       <hr className="mt-0 mb-4" />
                       <div className="row pt-1">

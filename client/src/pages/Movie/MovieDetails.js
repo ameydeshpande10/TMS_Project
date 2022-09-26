@@ -42,7 +42,10 @@ export const MovieDetails = () => {
 
     return (
       <>
-        <div className="conatiner p-1  d-flex justify-content-center align-items-center">
+        <div
+          key={name}
+          className="conatiner p-1  d-flex justify-content-center align-items-center"
+        >
           {/*mt-5 p-2 */}
 
           <div className="conatiner  " style={{ width: "65vw" }}>
