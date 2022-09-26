@@ -29,11 +29,12 @@ export const Aboutus = () => {
             <div className="contact_info_content ">
               <div className="contact_info_title">Address</div>
               <div className="contact_info_text">Pune, Maharashtra, India</div>
+              <br></br>
+              {/* <button className="seat-btn">A1</button> */}
             </div>
           </div>
         </div>
       </div>
-      <br></br>
     </div>
   );
 };

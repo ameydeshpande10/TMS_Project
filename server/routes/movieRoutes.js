@@ -9,4 +9,10 @@ router.get("/movie/get-movie/:movie_name", movieController.GetMovie);
 router.get("/movies", movieController.Movies);
 router.post("/movie/delete-movie", movieController.DeleteMovie);
 router.get("/moviedetails/:id", movieController.GetMovieDetails);
+
+router.post("/addshows", movieController.AddShows);
+router.post("/showdetails-single/:id", movieController.PostShowDetailsSingle);
+router.get("/showdetails/:id", movieController.GetShowDetails);
+router.post("/bookseats/:id", movieController.PostBookSeat);
+
 module.exports = router;

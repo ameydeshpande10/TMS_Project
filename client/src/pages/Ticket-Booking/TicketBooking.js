@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, NavLink } from "react-router-dom";
 import MovieDetailsIndividual from "../Movie/MovieDetailsIndividual";
 
 export const TicketBooking = () => {
@@ -13,6 +13,37 @@ export const TicketBooking = () => {
 
   const [ticketDate, setTicketDate] = useState("");
   const [ticketTime, setTicketTime] = useState("");
+  const [ticketCount, setTicketCount] = useState();
+  const [hasAdded, sethasAdded] = useState(false);
+  var [ShowArray] = useState([]);
+  var [ShowTimings] = useState([]);
+
+  //console.log(ShowTimings);
+
+  async function GetShows(e) {
+    // ShowArray = [];
+    // ShowTimings = [];
+    try {
+      await axios.get(`http://localhost:3001/showdetails/${id}`).then((res) => {
+        for (let index = 0; index < res.data.length; index++) {
+          ShowArray[index] = res.data[index];
+        }
+
+        //console.log(res.data[0]);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const PopulateShowTime = () => {
+    ShowTimings = [];
+    ShowArray.map((show) => {
+      if (show.show.split("T")[0] === ticketDate) {
+        if (show.time !== null) ShowTimings.push(show.time);
+      }
+    });
+  };
+  PopulateShowTime();
 
   async function BookTicket(e) {
     e.preventDefault();
@@ -34,27 +65,38 @@ export const TicketBooking = () => {
     }
   }
 
+  // const RenderTimes = () => {
+  //   ShowTimings.map((time) => {
+  //     return (
+  //       <div key={time}>
+  //         <input
+  //           className="btn btn-primary "
+  //           type="radio"
+  //           value={time}
+  //           name="time_slot"
+  //           onChange={(e) => setTicketTime(e.target.value)}
+  //         />
+  //         {time}
+  //       </div>
+  //     );
+  //   });
+  // };
+
   const movieDetails = MovieDetailsIndividual(params);
   try {
+    //Movie data
     const name = movieDetails.name;
-
-    // const actors_name = movieDetails.actors;
     const certification = movieDetails.certification;
-    // const director = movieDetails.director;
-    // const genre = movieDetails.genre;
     const movie_length = movieDetails.movie_length;
-    const release_date = movieDetails.release_date; //
-    // const start_date = movieDetails.start_date.split("T")[0];
-    // const end_date = movieDetails.end_date.split("T")[0];
-    const first_show = movieDetails.first_show;
-    const second_show = movieDetails.second_show;
+    const release_date = movieDetails.release_date;
     const image = movieDetails.image;
+    //Show data
+    const date = movieDetails.first_show;
+    const second_show = movieDetails.second_show;
 
     return (
       <>
         <div className="conatiner p-2  d-flex justify-content-center align-items-center">
-          {/*mt-5 p-2 */}
-
           <div className="conatiner  " style={{ width: "65vw" }}>
             <div className="card ">
               <form className="form-control" onSubmit={BookTicket}>
@@ -95,40 +137,33 @@ export const TicketBooking = () => {
                         type="date"
                         id="birthday"
                         name="birthday"
-                        onChange={(e) => setTicketDate(e.target.value)}
+                        onChange={(e) => {
+                          setTicketDate(e.target.value);
+                        }}
+                        onChangeCapture={GetShows}
                       />
                       <hr className="border border-primary border-3 opacity-75"></hr>
                       <p className="card-text">Select Time</p>
                       <div className="row">
                         <div className=" col">
-                          <input
-                            className="btn btn-primary "
-                            type="radio"
-                            value={first_show}
-                            name="time_slot"
-                            onChange={(e) => setTicketTime(e.target.value)}
-                          />
-
-                          {first_show}
-                        </div>
-
-                        <div className=" col">
-                          <input
-                            className="btn btn-primary "
-                            type="radio"
-                            name="time_slot"
-                            value={second_show}
-                          />
-                          {second_show}
-                        </div>
-                        <div className=" col">
-                          <input
-                            className="btn btn-primary "
-                            type="radio"
-                            name="time_slot"
-                            value={second_show}
-                          />
-                          {second_show}
+                          <ul>
+                            {ShowTimings.map((time) => {
+                              return (
+                                <div>
+                                  <input
+                                    className="btn btn-primary "
+                                    type="radio"
+                                    value={time}
+                                    name="time_slot"
+                                    onChange={(e) =>
+                                      setTicketTime(e.target.value)
+                                    }
+                                  />
+                                  {time}
+                                </div>
+                              );
+                            })}
+                          </ul>
                         </div>
                       </div>
 
@@ -139,7 +174,14 @@ export const TicketBooking = () => {
                         type="Number"
                         id="ticketcount"
                         name="ticketcount"
+                        onChange={(e) => setTicketCount(e.target.value)}
                       />
+                      <NavLink to={`/bookticket/${id}`}>
+                        <button type="submit" className="btn ">
+                          Select seats
+                        </button>
+                      </NavLink>
+
                       <br></br>
                       <br></br>
                       <button type="submit" className="btn ">
@@ -158,3 +200,20 @@ export const TicketBooking = () => {
     console.log(e);
   }
 };
+
+// {
+//   ShowTimings.map((time) => {
+//     return (
+//       <div>
+//         <input
+//           className="btn btn-primary "
+//           type="radio"
+//           value={time}
+//           name="time_slot"
+//           onChange={(e) => setTicketTime(e.target.value)}
+//         />
+//         {time}
+//       </div>
+//     );
+//   });
+// }

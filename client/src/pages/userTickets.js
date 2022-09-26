@@ -42,15 +42,16 @@ export const UserTickets = () => {
             <section className="card-cont">
               <h2 key={ticket.movie}>{ticket.movie}</h2>
               <div className="even-date">
-                <i className="fa fa-calendar"></i>
                 <time>
                   <span key={ticket.date}>{ticket.date}</span>
                   <br></br>
                   <span key={ticket.time_slot}> {ticket.time_slot}</span>
                 </time>
               </div>
-              <div className="even-info">
-                <i className="fa fa-map-marker"></i>
+
+              <div className="even-info r-3"> Seat no. {ticket.seats}</div>
+              <div className="col-5 ">
+                <h3>{ticket.tickets}</h3>
               </div>
             </section>
           </article>

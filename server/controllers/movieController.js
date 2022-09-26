@@ -1,5 +1,6 @@
 const express = require("express");
 const movie = require("../model/movie");
+const Show = require("../model/show");
 const multer = require("multer");
 const fs = require("fs");
 var path = require("path");
@@ -191,4 +192,105 @@ exports.DeleteMovie = async (req, res) => {
   } catch (error) {
     res.status(500).send({ message: "Internal server error" });
   }
+};
+
+//Shows
+//router.post("/addshows",
+exports.AddShows = async (req, res) => {
+  try {
+    const {
+      movieId,
+      show,
+      time,
+      platinumRows,
+      platinumRate,
+      goldRows,
+      goldRate,
+      silverRows,
+      silverRate,
+    } = req.body;
+    const newShow = new Show({
+      movieId,
+      show,
+      time,
+      platinumRows,
+      platinumRate,
+      goldRows,
+      goldRate,
+      silverRows,
+      silverRate,
+    });
+    await newShow.save();
+    res.status(201).json("show added successfully");
+  } catch (error) {
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
+
+//search with time
+//router.get("/showdetails/:id",
+exports.PostShowDetailsSingle = async (req, res) => {
+  try {
+    let id = req.params.id;
+    let date = req.body.date.split("T")[0];
+    let d = new Date(date);
+    let time = req.body.time;
+
+    const show = await Show.find({ id });
+
+    if (show == null) {
+      res.send({ message: "shows unavailable" });
+    } else {
+      show.map((x) => {
+        if (x.show.toString() == d.toString() && x.time == time) {
+          console.log(x);
+          res.send(x);
+        }
+      });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
+//search with time
+//router.get("/showdetails/:id",
+exports.GetShowDetails = async (req, res) => {
+  try {
+    let id = req.params.id;
+
+    const show = await Show.find({ id });
+
+    if (show == null) {
+      res.send({ message: "shows unavailable" });
+    } else {
+      res.send(show);
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
+
+// book ticket, add to Show
+//router.post('/bookseats/:id',
+exports.PostBookSeat = async (req, res) => {
+  let id = req.params.id;
+  let bookedSeats = req.body.bookedSeats;
+  try {
+    for (var i = 0; i < bookedSeats.length; i++) {
+      console.log("adding");
+      await Show.findOneAndUpdate(
+        {
+          _id: id,
+        },
+        {
+          $push: {
+            bookedSeats: bookedSeats[i],
+          },
+        }
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  res.json({ status: "seat booked" });
 };

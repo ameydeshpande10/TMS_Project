@@ -37,6 +37,12 @@ export const MovieDetails = () => {
             </button>
           );
         }
+      } else if (adminCheck === "Admin") {
+        return (
+          <button className="btn ">
+            <NavLink to={`/addshows/${id.id}`}>Add Shows</NavLink>
+          </button>
+        );
       }
     };
 

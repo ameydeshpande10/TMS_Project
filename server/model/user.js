@@ -22,6 +22,8 @@ const User = new mongoose.Schema({
       movie: String,
       date: String,
       time_slot: String,
+      tickets: String,
+      seats: String,
     },
   ],
   tokens: [

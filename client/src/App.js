@@ -25,10 +25,12 @@ import { ResetPassword } from "./pages/ResetPassword";
 //User-path-book-ticket
 import { TicketBooking } from "./pages/Ticket-Booking/TicketBooking";
 import { TicketPayment } from "./pages/Ticket-Booking/TicketPayment";
+import { BookMySeats } from "./pages/Ticket-Booking/BookMySeats";
 
 // Admin-path
 import { AddMovie } from "./pages/Admin-path/AddMovie";
 import { DeleteMovie } from "./pages/Admin-path/DeleteMovie";
+import { AddShows } from "./pages/Admin-path/AddShows";
 
 // Other
 import { Aboutus } from "./pages/aboutus";
@@ -76,6 +78,8 @@ const App = () => {
             <Route path="/moviedetails/:id" element={<MovieDetails />} />
             <Route path="/book-ticket/:id" element={<TicketBooking />} />
             <Route path="/ticket-payment/:id" element={<TicketPayment />} />
+            <Route path="/addshows/:id" element={<AddShows />} />
+            <Route path="/bookticket/:id" element={<BookMySeats />} />
           </Routes>
         </Router>
       </UserContext.Provider>

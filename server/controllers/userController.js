@@ -328,6 +328,8 @@ exports.UpdateTicket = async (req, res) => {
       movie: cmovie.name,
       date: req.body.date,
       time_slot: req.body.time_slot,
+      tickets: req.body.tickets,
+      seats: req.body.seats,
     };
 
     otp = Math.floor(100000 + Math.random() * 900000);
