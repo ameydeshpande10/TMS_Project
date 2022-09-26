@@ -51,6 +51,7 @@ const App = () => {
       <UserContext.Provider value={{ state, dispatch }}>
         <Router>
           <Navbar />
+
           <Routes>
             <Route path="/Movies" exact element={<Home />} />
             <Route path="/signin" element={<Login />} />
