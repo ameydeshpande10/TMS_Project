@@ -158,11 +158,28 @@ exports.DeleteMovie = async (req, res) => {
 // router.get("/movies",
 exports.Movies = async (req, res) => {
   try {
-    const movies = await movie.find();
+    const movies = await movie.find({});
+
     res.status(200).send({ data: movies });
+    res.end();
   } catch (error) {
     res.status(500).send({ message: "Internal server error" });
+    res.end();
   }
+  res.end();
+};
+
+// Get all movies with curser
+exports.MoviesCursor = async (req, res) => {
+  try {
+    const cursor = await movie.find({}).cursor();
+    res.status(200).send({ data: cursor });
+    res.end();
+  } catch (error) {
+    res.status(500).send({ message: "Internal server error" });
+    res.end();
+  }
+  res.end();
 };
 
 //router.get("/moviedetails/:id",

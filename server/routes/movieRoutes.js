@@ -7,6 +7,7 @@ router.post("/movieregister", movieController.AddMovieS);
 router.get("/movie/remove-movie", movieController.DeleteMovie);
 router.get("/movie/get-movie/:movie_name", movieController.GetMovie);
 router.get("/movies", movieController.Movies);
+router.get("/movies/cursor", movieController.MoviesCursor);
 router.post("/movie/delete-movie", movieController.DeleteMovie);
 router.get("/moviedetails/:id", movieController.GetMovieDetails);
 

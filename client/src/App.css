@@ -1,8 +1,4 @@
 .seat-btn {
-  background-color: greenyellow;
-  color: black;
-  text-align: center;
-
   clip-path: polygon(
     15% 50%,
     0 50%,
@@ -18,15 +14,8 @@
     15% 0
   );
   border: none;
-  border-radius: 3px;
-  height: 50px;
-  width: 50px;
 }
 .seat-btn:checked {
-  background-color: red;
-  color: black;
-  text-align: center;
-
   clip-path: polygon(
     15% 50%,
     0 50%,
@@ -41,8 +30,5 @@
     85% 0,
     15% 0
   );
-  border: 1px black solid;
-  border-radius: 3px;
-  height: 50px;
-  width: 50px;
+  border: none;
 }

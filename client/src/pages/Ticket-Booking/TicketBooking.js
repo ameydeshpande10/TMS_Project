@@ -393,7 +393,8 @@ export const TicketBooking = () => {
                   <div className="col">
                     <img
                       src={image}
-                      className="card-img-top p-2 img-fluid img-thumbnail"
+                      className="card-img p-1"
+                      style={{ height: "550px" }}
                       alt="..."
                     />
                   </div>
@@ -481,12 +482,9 @@ export const TicketBooking = () => {
                   {
                     <div>
                       <div className="row d-flex justify-content-center">
-                        <div className="d-flex justify-content-center">
-                          <div className="card p-2" style={{ width: "80vw" }}>
-                            <div
-                              className="card d-flex justify-content-center align-items-center"
-                              style={{ width: "68vw" }}
-                            >
+                        <div className="d-flex  justify-content-center">
+                          <div className="card " style={{ width: "80vw" }}>
+                            <div className="card  p-5 d-flex justify-content-center align-items-center ">
                               <h4>Platinum:{platinumRate}</h4>
                               <Seats
                                 values={platinumSeats}
@@ -497,7 +495,7 @@ export const TicketBooking = () => {
                               />
                             </div>
                             <div
-                              className="card d-flex justify-content-center align-items-center"
+                              className="card p-5 d-flex justify-content-center align-items-center"
                               style={{ width: "68vw" }}
                             >
                               <h4>Gold:{goldRate}</h4>
@@ -510,7 +508,7 @@ export const TicketBooking = () => {
                               />
                             </div>
                             <div
-                              className="card d-flex justify-content-center align-items-center"
+                              className="card p-5 d-flex justify-content-center align-items-center"
                               style={{ width: "68vw" }}
                             >
                               <h4>Silver:{silverRate}</h4>

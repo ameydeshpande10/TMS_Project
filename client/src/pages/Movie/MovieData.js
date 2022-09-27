@@ -10,7 +10,7 @@ export default function MovieData() {
         setData(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  });
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -18,7 +18,7 @@ export default function MovieData() {
       setData(dbMovies.data);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  });
   //console.log(data);
   return data;
 }

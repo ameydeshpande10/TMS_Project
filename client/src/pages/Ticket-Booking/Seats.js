@@ -12,21 +12,21 @@ export const Seats = (props) => {
         const isBooked = props.bookedSeats.includes(seat);
         let seatClass;
         if (!isAvailable) {
-          seatClass = "btn btn-primary  ";
+          seatClass = "btn btn-primary seat-btn ";
         }
         if (unAvailable) {
-          seatClass = "btn btn-danger disabled  ";
+          seatClass = "btn btn-danger disabled  seat-btn";
         }
         if (isBooked) {
-          seatClass = "btn btn-success  ";
+          seatClass = "btn btn-success seat-btn ";
         }
         return (
-          <div className="card p-3">
+          <div className="card p-1 border-0">
             <div
               className={seatClass}
               onClick={props.addSeat}
               key={seat}
-              style={{ width: "3.7vw" }}
+              style={{ width: "4vw" }}
             >
               {seat}
             </div>
