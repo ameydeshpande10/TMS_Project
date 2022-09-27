@@ -46,6 +46,7 @@ function MovieCard(props) {
         return (
           <>
             <div
+              key={name}
               className="card mt-5 me-5"
               style={{
                 borderTopLeftRadius: "5rem",
@@ -79,7 +80,7 @@ function MovieCard(props) {
       } else {
         return (
           <>
-            <div className="">
+            <div key={name} className="">
               <div
                 className="card mt-5 me-5 rounded"
                 style={{

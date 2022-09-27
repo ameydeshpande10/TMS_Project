@@ -56,6 +56,7 @@ const App = () => {
 
           <Routes>
             <Route path="/Movies" exact element={<Home />} />
+            <Route path="/" exact element={<Home />} />
             <Route path="/signin" element={<Login />} />
             <Route path="/sign-up" element={<Signup />} />
             <Route path="/user_details" element={<UserDetails />} />
@@ -79,7 +80,6 @@ const App = () => {
             <Route path="/book-ticket/:id" element={<TicketBooking />} />
             <Route path="/ticket-payment/:id" element={<TicketPayment />} />
             <Route path="/addshows/:id" element={<AddShows />} />
-            <Route path="/bookticket/:id" element={<BookMySeats />} />
           </Routes>
         </Router>
       </UserContext.Provider>
@@ -88,3 +88,5 @@ const App = () => {
 };
 
 export default App;
+
+// <Route path="/bookticket/:id" element={<BookMySeats />} />

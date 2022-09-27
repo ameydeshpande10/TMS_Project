@@ -12,13 +12,13 @@ export const Seats = (props) => {
         const isBooked = props.bookedSeats.includes(seat);
         let seatClass;
         if (!isAvailable) {
-          seatClass = "btn btn-primary";
+          seatClass = "btn btn-primary  ";
         }
         if (unAvailable) {
-          seatClass = "btn btn-danger disabled";
+          seatClass = "btn btn-danger disabled  ";
         }
         if (isBooked) {
-          seatClass = "btn btn-success";
+          seatClass = "btn btn-success  ";
         }
         return (
           <div className="card p-3">

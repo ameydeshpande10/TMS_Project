@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Seats } from "./Seats";
 import { useNavigate, useParams, NavLink } from "react-router-dom";
 import MovieDetailsIndividual from "../Movie/MovieDetailsIndividual";
 
@@ -10,41 +11,161 @@ export const TicketBooking = () => {
   const params = useParams();
 
   //data to post
+  const [buttonPopUp, setButtonPopUp] = useState(false);
 
-  const [ticketDate, setTicketDate] = useState("");
+  const [ticketDate, setTicketDate] = useState();
   const [ticketTime, setTicketTime] = useState("");
+
   const [ticketCount, setTicketCount] = useState();
   const [hasAdded, sethasAdded] = useState(false);
   var [ShowArray] = useState([]);
-  var [ShowTimings] = useState([]);
+  var [ShowTimings, setShowTimings] = useState([]);
+
+  // for seat
+  const [getData, setGetData] = useState([]);
+  const [showData, setShowData] = useState([]);
+  const [numberOfSeats, setNumberOfSeats] = useState(0);
+  // const [ticketDate, setTicketDate] = useState(
+  //   new Date().toISOString().slice(0, 10)
+  // );
+  const [platinumSeats, setPlatinumSeats] = useState([]);
+  const [silverSeats, setSilverSeats] = useState([]);
+  const [goldSeats, setGoldSeats] = useState([]);
+  const [platinumRate, setPlatinumRate] = useState([]);
+  const [goldRate, setGoldRate] = useState([]);
+  const [silverRate, setSilverRate] = useState([]);
+  const [ticketFare, setTicketFare] = useState([]);
+  const [unAvailableSeats, setUnAvailableSeats] = useState([]);
+  const [availableSeats, setAvailableSeats] = useState([]);
+  const [bookedSeats, setBookedSeats] = useState([]);
+  const [bookedStatus, setBookedStatus] = useState("");
 
   //console.log(ShowTimings);
 
-  async function GetShows(e) {
-    // ShowArray = [];
-    // ShowTimings = [];
-    try {
-      await axios.get(`http://localhost:3001/showdetails/${id}`).then((res) => {
-        for (let index = 0; index < res.data.length; index++) {
-          ShowArray[index] = res.data[index];
-        }
-
-        //console.log(res.data[0]);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  const PopulateShowTime = () => {
-    ShowTimings = [];
-    ShowArray.map((show) => {
-      if (show.show.split("T")[0] === ticketDate) {
-        if (show.time !== null) ShowTimings.push(show.time);
+  useEffect(() => {
+    const GetShows = async () => {
+      try {
+        await axios
+          .get(`http://localhost:3001/showdetails/${id}`, {
+            date: ticketDate,
+          })
+          .then((res) => {
+            for (let index = 0; index < res.data.length; index++) {
+              ShowArray[index] = res.data[index];
+            }
+          });
+      } catch (error) {
+        console.log(error);
       }
-    });
-  };
-  PopulateShowTime();
+    };
+    GetShows();
+    const PopulateShowTime = () => {
+      ShowTimings = [];
+      ShowArray.map((show) => {
+        if (show.show.split("T")[0] === ticketDate) {
+          ShowTimings.push(show.time);
+        }
+      });
+      setShowTimings(ShowTimings);
+    };
+    PopulateShowTime();
+  }, [ticketDate, ticketTime]);
 
+  useEffect(() => {
+    const getShowDetails = () => {
+      //console.log(ShowArray);
+      if (ShowArray !== null) {
+        ShowArray.some((show) => {
+          if (show.show.split("T")[0] === ticketDate)
+            if (show.time === ticketTime) {
+              setShowData(show);
+              setPlatinumSeats(show.platinumRows);
+              setSilverSeats(show.silverRows);
+              setGoldSeats(show.goldRows);
+              setUnAvailableSeats(show.bookedSeats);
+              setPlatinumRate(show.platinumRate);
+              setGoldRate(show.goldRate);
+              setSilverRate(show.silverRate);
+              return true;
+            } else {
+              setShowData([]);
+              setPlatinumSeats([]);
+              setSilverSeats([]);
+              setGoldSeats([]);
+              setUnAvailableSeats([]);
+              setPlatinumRate([]);
+              setGoldRate([]);
+              setSilverRate([]);
+              return false;
+            }
+        });
+      }
+    };
+    getShowDetails();
+  }, [ticketTime]);
+
+  //console.log(ShowTimings);
+  // //Get all shows of movie
+  // async function GetShows(e) {
+  //   try {
+  //     await axios.get(`http://localhost:3001/showdetails/${id}`).then((res) => {
+  //       for (let index = 0; index < res.data.length; index++) {
+  //         ShowArray[index] = res.data[index];
+  //       }
+  //       ShowTimings = [];
+  //       ShowArray.map((show) => {
+  //         if (show.show.split("T")[0] === ticketDate) {
+  //           if (show.time !== null) ShowTimings.push(show.time);
+  //         }
+  //       });
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+  // add times to Showtimings array
+  // const PopulateShowTime = () => {
+  //   ShowTimings = [];
+  //   ShowArray.map((show) => {
+  //     if (show.show.split("T")[0] === ticketDate) {
+  //       if (show.time !== null) ShowTimings.push(show.time);
+  //     }
+  //   });
+  // };
+  // PopulateShowTime();
+
+  // show details
+  // const getShowDetails = () => {
+  //   if (ShowArray !== null) {
+  //     ShowArray.map((show) => {
+  //       if (
+  //         show.show.split("T")[0] === ticketDate &&
+  //         show.time === ticketTime
+  //       ) {
+  //         console.log(show);
+  //         setShowData(show);
+  //         setPlatinumSeats(show.platinumRows);
+  //         setSilverSeats(show.silverRows);
+  //         setGoldSeats(show.goldRows);
+  //         setUnAvailableSeats(show.bookedSeats);
+  //         setPlatinumRate(show.platinumRate);
+  //         setGoldRate(show.goldRate);
+  //         setSilverRate(show.silverRate);
+  //       } else {
+  //         setShowData([]);
+  //         setPlatinumSeats([]);
+  //         setSilverSeats([]);
+  //         setGoldSeats([]);
+  //         setUnAvailableSeats([]);
+  //         setPlatinumRate([]);
+  //         setGoldRate([]);
+  //         setSilverRate([]);
+  //       }
+  //     });
+  //   }
+  // };
+
+  //proceed to book ticket
   async function BookTicket(e) {
     e.preventDefault();
 
@@ -52,9 +173,10 @@ export const TicketBooking = () => {
       await axios
         .post("http://localhost:3001/user/add-ticket", {
           id,
-
           date: ticketDate,
           time_slot: ticketTime,
+          seats: bookedSeats,
+          tickets: numberOfSeats,
         })
         .then((res) => {
           console.log(res.data);
@@ -65,22 +187,187 @@ export const TicketBooking = () => {
     }
   }
 
-  // const RenderTimes = () => {
-  //   ShowTimings.map((time) => {
+  //Render seat select popup
+
+  // useEffect(() => {
+  //   const RenderSeatSelect = () => {
   //     return (
-  //       <div key={time}>
-  //         <input
-  //           className="btn btn-primary "
-  //           type="radio"
-  //           value={time}
-  //           name="time_slot"
-  //           onChange={(e) => setTicketTime(e.target.value)}
-  //         />
-  //         {time}
+  //       <div>
+  //         <div className="row d-flex justify-content-center">
+  //           <div className="d-flex justify-content-center">
+  //             <div className="card p-2" style={{ width: "80vw" }}>
+  //               <div
+  //                 className="card d-flex justify-content-center align-items-center"
+  //                 style={{ width: "68vw" }}
+  //               >
+  //                 <h4>Platinum:{platinumRate}</h4>
+  //                 <Seats
+  //                   values={platinumSeats}
+  //                   availableSeats={availableSeats}
+  //                   unAvailableSeats={unAvailableSeats}
+  //                   bookedSeats={bookedSeats}
+  //                   addSeat={addSeat}
+  //                 />
+  //               </div>
+  //               <div
+  //                 className="card d-flex justify-content-center align-items-center"
+  //                 style={{ width: "68vw" }}
+  //               >
+  //                 <h4>Gold:{goldRate}</h4>
+  //                 <Seats
+  //                   values={goldSeats}
+  //                   availableSeats={availableSeats}
+  //                   unAvailableSeats={unAvailableSeats}
+  //                   bookedSeats={bookedSeats}
+  //                   addSeat={addSeat}
+  //                 />
+  //               </div>
+  //               <div
+  //                 className="card d-flex justify-content-center align-items-center"
+  //                 style={{ width: "68vw" }}
+  //               >
+  //                 <h4>Silver:{silverRate}</h4>
+  //                 <Seats
+  //                   values={silverSeats}
+  //                   availableSeats={availableSeats}
+  //                   unAvailableSeats={unAvailableSeats}
+  //                   bookedSeats={bookedSeats}
+  //                   addSeat={addSeat}
+  //                 />
+  //               </div>
+  //             </div>
+  //           </div>
+  //         </div>
+  //         <div className="row d-flex justify-content-center">
+  //           <div className="col-1">
+  //             <button className="btn btn-primary">
+  //               {/* onClick={confirm_booking} */}
+  //               Book seats
+  //             </button>
+  //           </div>
+  //           <div className="row text-center">
+  //             <p>{bookedStatus}</p>
+  //           </div>
+  //         </div>
   //       </div>
   //     );
-  //   });
+  //   };
+  //   RenderSeatSelect();
+  // }, [platinumRate]);
+
+  const confirm_booking = () => {
+    try {
+      if (bookedSeats.length > 0) {
+        axios
+          .post(`/bookseats/${showData._id}`, {
+            bookedSeats: bookedSeats,
+          })
+          .then(
+            (response) => {
+              console.log(response);
+            },
+            (err) => console.log(err)
+          );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setBookedStatus("You have successfully booked the following seats:");
+    setUnAvailableSeats([...unAvailableSeats, ...bookedSeats]);
+    bookedSeats.forEach((seat) => {
+      setBookedStatus((prevState) => {
+        return prevState + seat + " ";
+      });
+    });
+    // setTicketFare(calculateTotalFare())
+    const newAvailableSeats = availableSeats.filter(
+      (seat) => !bookedSeats.includes(seat)
+    );
+    setAvailableSeats(newAvailableSeats);
+    setBookedSeats("");
+    setNumberOfSeats(0);
+  };
+
+  // const RenderSeatSelect = () => {
+  //   return (
+  //     <div>
+  //       <div className="row d-flex justify-content-center">
+  //         <div className="d-flex justify-content-center">
+  //           <div className="card p-2" style={{ width: "80vw" }}>
+  //             <div
+  //               className="card d-flex justify-content-center align-items-center"
+  //               style={{ width: "68vw" }}
+  //             >
+  //               <h4>Platinum:{platinumRate}</h4>
+  //               <Seats
+  //                 values={platinumSeats}
+  //                 availableSeats={availableSeats}
+  //                 unAvailableSeats={unAvailableSeats}
+  //                 bookedSeats={bookedSeats}
+  //                 addSeat={addSeat}
+  //               />
+  //             </div>
+  //             <div
+  //               className="card d-flex justify-content-center align-items-center"
+  //               style={{ width: "68vw" }}
+  //             >
+  //               <h4>Gold:{goldRate}</h4>
+  //               <Seats
+  //                 values={goldSeats}
+  //                 availableSeats={availableSeats}
+  //                 unAvailableSeats={unAvailableSeats}
+  //                 bookedSeats={bookedSeats}
+  //                 addSeat={addSeat}
+  //               />
+  //             </div>
+  //             <div
+  //               className="card d-flex justify-content-center align-items-center"
+  //               style={{ width: "68vw" }}
+  //             >
+  //               <h4>Silver:{silverRate}</h4>
+  //               <Seats
+  //                 values={silverSeats}
+  //                 availableSeats={availableSeats}
+  //                 unAvailableSeats={unAvailableSeats}
+  //                 bookedSeats={bookedSeats}
+  //                 addSeat={addSeat}
+  //               />
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //       <div className="row d-flex justify-content-center">
+  //         <div className="col-1">
+  //           <button className="btn btn-primary">
+  //             {/* onClick={confirm_booking} */}
+  //             Book seats
+  //           </button>
+  //         </div>
+  //         <div className="row text-center">
+  //           <p>{bookedStatus}</p>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
   // };
+
+  //add seats
+  const addSeat = (event) => {
+    if (numberOfSeats && !event.target.className.includes("disabled")) {
+      const seatsToBook = parseInt(numberOfSeats, 10);
+      if (bookedSeats.includes(event.target.innerText)) {
+        const newAvailable = bookedSeats.filter(
+          (seat) => seat !== event.target.innerText
+        );
+        setBookedSeats(newAvailable);
+      } else if (bookedSeats.length < numberOfSeats) {
+        setBookedSeats([...bookedSeats, event.target.innerText]);
+      } else if (bookedSeats.length === seatsToBook) {
+        bookedSeats.shift();
+        setBookedSeats([...bookedSeats, event.target.innerText]);
+      }
+    }
+  };
 
   const movieDetails = MovieDetailsIndividual(params);
   try {
@@ -97,9 +384,9 @@ export const TicketBooking = () => {
     return (
       <>
         <div className="conatiner p-2  d-flex justify-content-center align-items-center">
-          <div className="conatiner  " style={{ width: "65vw" }}>
+          <div className="conatiner  ">
             <div className="card ">
-              <form className="form-control" onSubmit={BookTicket}>
+              <div className="form-control">
                 <div className="row">
                   <div className="col">
                     <img
@@ -118,7 +405,6 @@ export const TicketBooking = () => {
                         {name}
                       </h5>
                       <br></br>
-
                       <p className="card-text">
                         <label className="me-2 fw-bold">Certification:</label>
                         {certification}
@@ -132,7 +418,6 @@ export const TicketBooking = () => {
                         {release_date}
                       </p>
                       <hr className="border border-primary border-3 opacity-75"></hr>
-
                       <input
                         type="date"
                         id="birthday"
@@ -140,8 +425,8 @@ export const TicketBooking = () => {
                         onChange={(e) => {
                           setTicketDate(e.target.value);
                         }}
-                        onChangeCapture={GetShows}
                       />
+
                       <hr className="border border-primary border-3 opacity-75"></hr>
                       <p className="card-text">Select Time</p>
                       <div className="row">
@@ -166,7 +451,6 @@ export const TicketBooking = () => {
                           </ul>
                         </div>
                       </div>
-
                       <hr className="border border-primary border-3 opacity-75"></hr>
                       <p className="card-text">How many tickets?</p>
                       <input
@@ -174,23 +458,88 @@ export const TicketBooking = () => {
                         type="Number"
                         id="ticketcount"
                         name="ticketcount"
-                        onChange={(e) => setTicketCount(e.target.value)}
+                        onChange={(e) => setNumberOfSeats(e.target.value)}
                       />
-                      <NavLink to={`/bookticket/${id}`}>
-                        <button type="submit" className="btn ">
-                          Select seats
-                        </button>
-                      </NavLink>
+                      <br></br>
+                      <button className="btn ">Select seats</button>
 
                       <br></br>
                       <br></br>
-                      <button type="submit" className="btn ">
+                      <button
+                        type="input"
+                        className="btn "
+                        onClick={BookTicket}
+                      >
                         Proceed to pay
                       </button>
                     </div>
                   </div>
                 </div>
-              </form>
+                <div className="row align-content-center ml-5">
+                  {
+                    <div>
+                      <div className="row d-flex justify-content-center">
+                        <div className="d-flex justify-content-center">
+                          <div className="card p-2" style={{ width: "80vw" }}>
+                            <div
+                              className="card d-flex justify-content-center align-items-center"
+                              style={{ width: "68vw" }}
+                            >
+                              <h4>Platinum:{platinumRate}</h4>
+                              <Seats
+                                values={platinumSeats}
+                                availableSeats={availableSeats}
+                                unAvailableSeats={unAvailableSeats}
+                                bookedSeats={bookedSeats}
+                                addSeat={addSeat}
+                              />
+                            </div>
+                            <div
+                              className="card d-flex justify-content-center align-items-center"
+                              style={{ width: "68vw" }}
+                            >
+                              <h4>Gold:{goldRate}</h4>
+                              <Seats
+                                values={goldSeats}
+                                availableSeats={availableSeats}
+                                unAvailableSeats={unAvailableSeats}
+                                bookedSeats={bookedSeats}
+                                addSeat={addSeat}
+                              />
+                            </div>
+                            <div
+                              className="card d-flex justify-content-center align-items-center"
+                              style={{ width: "68vw" }}
+                            >
+                              <h4>Silver:{silverRate}</h4>
+                              <Seats
+                                values={silverSeats}
+                                availableSeats={availableSeats}
+                                unAvailableSeats={unAvailableSeats}
+                                bookedSeats={bookedSeats}
+                                addSeat={addSeat}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row d-flex justify-content-center">
+                        <div className="col-1">
+                          <button
+                            className="btn btn-primary"
+                            onClick={confirm_booking}
+                          >
+                            Book seats
+                          </button>
+                        </div>
+                        <div className="row text-center">
+                          <p>{bookedStatus}</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -217,3 +566,37 @@ export const TicketBooking = () => {
 //     );
 //   });
 // }
+
+{
+  /* <div className="row d-flex justify-content-center">
+  <div className="col-3">
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputPassword1"
+              placeholder="Enter seats"
+              value={numberOfSeats}
+              onChange={(event) => setNumberOfSeats(event.target.value)}
+            />
+          </div>
+  <div className="col-3">
+            <input
+              type="date"
+              className="form-control"
+              id="exampleInputPassword1"
+              value={ticketDate}
+              onChange={(event) => setTicketDate(event.target.value)}
+            />
+          </div>
+  <div className="col-3 d-flex justify-content-center">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{ width: "30vw" }}
+              onClick={showDetails}
+            >
+              Check Availability
+            </button>
+          </div>
+</div>; */
+}
