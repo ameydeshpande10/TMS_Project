@@ -2,6 +2,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const Show = require("../model/show");
 
 let express = require("express");
 let bodyParser = require("body-parser");
@@ -311,6 +312,7 @@ exports.ResetPasswordPost = async (req, res) => {
 // update database add ticket
 let ticket;
 let otp;
+var seatbooked = [];
 exports.UpdateTicket = async (req, res) => {
   try {
     console.log("in update ticket");
@@ -324,12 +326,18 @@ exports.UpdateTicket = async (req, res) => {
       _id: id,
     });
 
+    let seatString = "";
+    for (let index = 0; index < req.body.seats.length; index++) {
+      seatbooked.push(req.body.seats[index]);
+      seatString += ", " + req.body.seats[index];
+    }
+
     ticket = {
       movie: cmovie.name,
       date: req.body.date,
       time_slot: req.body.time_slot,
       tickets: req.body.tickets,
-      seats: req.body.seats,
+      seats: seatString,
     };
 
     otp = Math.floor(100000 + Math.random() * 900000);
@@ -375,10 +383,33 @@ exports.ConfirmOTP = async (req, res) => {
 
     if (newOTP == otp.toString()) {
       console.log("OTP matched");
+
+      //updating seats database
+      let id = req.params.id;
+      //let bookedSeats = ticket.seats;
+
+      try {
+        for (var i = 0; i < seatbooked.length; i++) {
+          console.log("adding");
+          await Show.findOneAndUpdate(
+            {
+              _id: id,
+            },
+            {
+              $push: {
+                bookedSeats: seatbooked[i],
+              },
+            }
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      res.json({ status: "seat booked" });
+
+      //adding ticket to user
       user.tickets.push(ticket);
-
       user.save();
-
       res.send({ message: "ticket Added" });
     } else {
       res.send({ message: "Payment Failed" });

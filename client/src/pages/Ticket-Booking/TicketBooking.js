@@ -259,15 +259,16 @@ export const TicketBooking = () => {
     try {
       if (bookedSeats.length > 0) {
         axios
-          .post(`/bookseats/${showData._id}`, {
-            bookedSeats: bookedSeats,
+          .post("http://localhost:3001/user/add-ticket", {
+            id,
+            date: ticketDate,
+            time_slot: ticketTime,
+            seats: bookedSeats,
+            tickets: numberOfSeats,
           })
-          .then(
-            (response) => {
-              console.log(response);
-            },
-            (err) => console.log(err)
-          );
+          .then((res) => {
+            console.log(res.data);
+          });
       }
     } catch (error) {
       console.log(error);
@@ -286,6 +287,7 @@ export const TicketBooking = () => {
     setAvailableSeats(newAvailableSeats);
     setBookedSeats("");
     setNumberOfSeats(0);
+    navigate(`/ticket-payment/${showData._id}`);
   };
 
   // const RenderSeatSelect = () => {
@@ -465,13 +467,13 @@ export const TicketBooking = () => {
 
                       <br></br>
                       <br></br>
-                      <button
+                      {/* <button
                         type="input"
                         className="btn "
                         onClick={BookTicket}
                       >
                         Proceed to pay
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>

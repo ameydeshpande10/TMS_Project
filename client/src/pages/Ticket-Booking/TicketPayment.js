@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 export const TicketPayment = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [message, setMessage] = useState("");
@@ -12,7 +13,7 @@ export const TicketPayment = () => {
 
     try {
       await axios
-        .post("http://localhost:3001/user/confirm-ticket", {
+        .post(`http://localhost:3001/user/confirm-ticket/${id}`, {
           otp,
         })
         .then((Response) => {

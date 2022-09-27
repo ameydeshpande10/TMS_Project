@@ -14,7 +14,7 @@ router.get("/user/get-tickets", userController.GetTickets);
 router.get("/user/details", userController.GetDetails);
 router.get("/user/reset_password", userController.reset_password);
 router.post("/user/add-ticket", userController.UpdateTicket);
-router.post("/user/confirm-ticket", userController.ConfirmOTP);
+router.post("/user/confirm-ticket/:id", userController.ConfirmOTP);
 
 //Password Reset
 router.post("/user/forgot-password", userController.ForgotPassword);
