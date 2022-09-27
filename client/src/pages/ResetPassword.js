@@ -43,7 +43,7 @@ export const ResetPassword = () => {
         .post("http://localhost:3001/user/reset-password", {
           id,
           token,
-          email,
+          // email,
           password,
           cpassword,
         })
@@ -73,7 +73,7 @@ export const ResetPassword = () => {
         <h5>Enter your Email And new Password </h5>
         <br></br>
         <br></br>
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label className="form-label">Email address</label>
           <input
             style={{
@@ -87,7 +87,7 @@ export const ResetPassword = () => {
             type="email"
             className="form-control "
           />
-        </div>
+        </div> */}
         <div className="mb-3">
           <label className="form-label">New Password</label>
           <input
