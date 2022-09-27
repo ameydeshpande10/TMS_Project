@@ -71,39 +71,62 @@ export const TicketBooking = () => {
     PopulateShowTime();
   }, [ticketDate, ticketTime]);
 
-  useEffect(() => {
-    const getShowDetails = () => {
-      //console.log(ShowArray);
-      if (ShowArray !== null) {
-        ShowArray.some((show) => {
-          if (show.show.split("T")[0] === ticketDate)
-            if (show.time === ticketTime) {
-              setShowData(show);
-              setPlatinumSeats(show.platinumRows);
-              setSilverSeats(show.silverRows);
-              setGoldSeats(show.goldRows);
-              setUnAvailableSeats(show.bookedSeats);
-              setPlatinumRate(show.platinumRate);
-              setGoldRate(show.goldRate);
-              setSilverRate(show.silverRate);
-              return true;
-            } else {
-              setShowData([]);
-              setPlatinumSeats([]);
-              setSilverSeats([]);
-              setGoldSeats([]);
-              setUnAvailableSeats([]);
-              setPlatinumRate([]);
-              setGoldRate([]);
-              setSilverRate([]);
-              return false;
-            }
-        });
-      }
-    };
-    getShowDetails();
-  }, [ticketTime]);
+  useEffect(
+    () => {
+      const getShowDetails = () => {
+        //console.log(ShowArray);
+        if (ShowArray !== null) {
+          ShowArray.some((show) => {
+            if (show.show.split("T")[0] === ticketDate)
+              if (show.time === ticketTime) {
+                setShowData(show);
+                setPlatinumSeats(show.platinumRows);
+                setSilverSeats(show.silverRows);
+                setGoldSeats(show.goldRows);
+                setUnAvailableSeats(show.bookedSeats);
+                setPlatinumRate(show.platinumRate);
+                setGoldRate(show.goldRate);
+                setSilverRate(show.silverRate);
+                return true;
+              } else {
+                setShowData([]);
+                setPlatinumSeats([]);
+                setSilverSeats([]);
+                setGoldSeats([]);
+                setUnAvailableSeats([]);
+                setPlatinumRate([]);
+                setGoldRate([]);
+                setSilverRate([]);
+                return false;
+              }
+          });
+        } else {
+          setShowData([]);
+          setPlatinumSeats([]);
+          setSilverSeats([]);
+          setGoldSeats([]);
+          setUnAvailableSeats([]);
+          setPlatinumRate([]);
+          setGoldRate([]);
+          setSilverRate([]);
+        }
+      };
+      getShowDetails();
+    },
+    [ticketTime],
+    [ticketDate]
+  );
 
+  useEffect(() => {
+    setShowData([]);
+    setPlatinumSeats([]);
+    setSilverSeats([]);
+    setGoldSeats([]);
+    setUnAvailableSeats([]);
+    setPlatinumRate([]);
+    setGoldRate([]);
+    setSilverRate([]);
+  }, [ticketDate]);
   //console.log(ShowTimings);
   // //Get all shows of movie
   // async function GetShows(e) {

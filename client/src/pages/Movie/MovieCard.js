@@ -110,6 +110,12 @@ function MovieCard(props) {
                   <NavLink to={`/${url}/${id}`} className={button_class}>
                     {button}
                   </NavLink>
+                  <NavLink
+                    to={`/book-ticket/${id}`}
+                    className="btn-dark btn btn-primary"
+                  >
+                    Book Ticket
+                  </NavLink>
                 </div>
               </div>
             </div>
