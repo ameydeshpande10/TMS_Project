@@ -9,7 +9,7 @@
     "client": "cd  .. && cd client && npm start",
     "start": "concurrently \"npm run dev\" \"npm run client\""
   },
-  "author": "Amey Deshpande",
+  "author": "Amey Deshpande, Akanksha Verma, Nishchay Choudhary, Kiran Kondawar, Shubham Kawthekar",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",

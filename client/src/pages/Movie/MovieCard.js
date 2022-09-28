@@ -1,10 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import MovieData from "./MovieData";
-// import MovieDetails from "./MovieDetails";
+import Cookies from "js-cookie";
 import Axios from "axios";
 
 function MovieCard(props) {
+  var adminCheck = localStorage.getItem("Admin");
   const button = props.data;
   var button_class = "btn btn-primary";
   var url = "moviedetails";
@@ -30,6 +31,17 @@ function MovieCard(props) {
         //console.log("future releses are : " + data.release_date);
       }
 
+      const RenderBookTicketButton = (props) => {
+        if (adminCheck === null) {
+          if (Cookies.get("loggedIn") === "true") {
+            return (
+              <NavLink to={`/book-ticket/${id}`} className="btn-dark btn ">
+                Book Tickets
+              </NavLink>
+            );
+          }
+        }
+      };
       // console.log(image);
       var base64 = btoa(
         new Uint8Array(data.image.data).reduce(
@@ -94,28 +106,31 @@ function MovieCard(props) {
                   className="card-img-top card_image"
                   alt="Not found"
                 />
-                <div className="card-body shadow">
-                  <p className="text-capitalize">
-                    <label className="me-2 fw-bold">Movie:</label>
-                    {name}
-                  </p>
-                  <p>
-                    <label className="me-2 fw-bold">Actors:</label>
-                    {actors_name}
-                  </p>
-                  <p>
-                    <label className="me-2 fw-bold">Director:</label>
-                    {director}
-                  </p>
-                  <NavLink to={`/${url}/${id}`} className={button_class}>
-                    {button}
-                  </NavLink>
-                  <NavLink
-                    to={`/book-ticket/${id}`}
-                    className="btn-dark btn btn-primary"
-                  >
-                    Book Ticket
-                  </NavLink>
+                <div className="card-body shadow pl-4">
+                  <div className="align-items-center justify-content-center p-2">
+                    <p className="text-capitalize ">
+                      <label className="me-2 fw-bold">
+                        <h4>
+                          <b>{name}</b>
+                        </h4>
+                      </label>
+                    </p>
+                    <p>
+                      <label className="me-2 fw-bold">Actors:&nbsp;</label>
+                      {actors_name}
+                    </p>
+                    <p>
+                      <label className="me-2 fw-bold">Director:&nbsp;</label>
+                      {director}
+                    </p>
+                  </div>
+
+                  <div className="align-items-center justify-content-around d-flex">
+                    <NavLink to={`/${url}/${id}`} className={button_class}>
+                      {button}
+                    </NavLink>
+                    <RenderBookTicketButton></RenderBookTicketButton>
+                  </div>
                 </div>
               </div>
             </div>

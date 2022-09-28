@@ -54,7 +54,7 @@ export const MovieDetails = () => {
         >
           {/*mt-5 p-2 */}
 
-          <div className="conatiner  " style={{ width: "65vw" }}>
+          <div className="conatiner col-8 ">
             <div className="card ">
               <div className="row">
                 <div className="col">
@@ -66,41 +66,47 @@ export const MovieDetails = () => {
                 </div>
                 <div className="col">
                   <div className="card-body h-50">
-                    <h5
+                    <p
                       className="card-title"
                       style={{ textTransform: "capitalize" }}
                     >
-                      <label className="me-2 fw-bold">Title: </label>
+                      <label className="me-2 fw-bold">Title:&nbsp; </label>
                       <span>
                         <h2>{name}</h2>
                       </span>
-                    </h5>
+                    </p>
                     <br></br>
                     <p className="card-text">
-                      <label className="me-2 fw-bold">Actors: </label>
+                      <label className="me-2 fw-bold">Actors:&nbsp; </label>
                       {actors_name}
                     </p>
                     <p className="card-text">
-                      <label className="me-2 fw-bold">Director: </label>
+                      <label className="me-2 fw-bold">Director:&nbsp; </label>
                       {director}
                     </p>
                     <p className="card-text">
-                      <label className="me-2 fw-bold">Genre: </label>
+                      <label className="me-2 fw-bold">Genre:&nbsp; </label>
                       {genre}
                     </p>
                     <p className="card-text">
-                      <label className="me-2 fw-bold">Certification: </label>
+                      <label className="me-2 fw-bold">
+                        Certification:&nbsp;
+                      </label>
                       {certification}
                     </p>
                     <p className="card-text">
-                      <label className="me-2 fw-bold">Movie length: </label>
+                      <label className="me-2 fw-bold">
+                        Movie length:&nbsp;
+                      </label>
                       {movie_length}
                     </p>
                     <p className="card-text">
-                      <label className="me-2 fw-bold">Release Date: </label>
+                      <label className="me-2 fw-bold">
+                        Release Date:&nbsp;
+                      </label>
                       <span>{release_date}</span>
                     </p>
-                    <p className="card-text">
+                    {/* <p className="card-text">
                       <label className="me-2 fw-bold">
                         Movie Availabe Date:
                       </label>
@@ -117,10 +123,10 @@ export const MovieDetails = () => {
                     <p className="card-text">
                       <label className="me-2 fw-bold">Second show: </label>
                       {second_show}
-                    </p>
+                    </p> */}
                     <p className="card-text">
                       <label className="me-2 fw-bold">
-                        Released on: {release_date}
+                        Released on: {release_date.split("T")[0]}
                       </label>
                     </p>
                     <RenderBookTicketButton />

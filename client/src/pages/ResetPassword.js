@@ -70,9 +70,9 @@ export const ResetPassword = () => {
       className="container-fluid d-flex justify-content-center"
     >
       <form onSubmit={ResetPassword}>
-        <h5>Enter your Email And new Password </h5>
+        <h5>Enter new Password </h5>
         <br></br>
-        <br></br>
+
         {/* <div className="mb-3">
           <label className="form-label">Email address</label>
           <input
