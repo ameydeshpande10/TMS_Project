@@ -393,7 +393,7 @@ exports.ConfirmOTP = async (req, res) => {
 
       try {
         for (var i = 0; i < seatbooked.length; i++) {
-          console.log("adding");
+          //console.log("adding");
           await Show.findOneAndUpdate(
             {
               _id: id,
@@ -410,9 +410,13 @@ exports.ConfirmOTP = async (req, res) => {
       }
       res.json({ status: "seat booked" });
 
+      console.log("Seat booked");
       //adding ticket to user
       user.tickets.push(ticket);
       user.save();
+      console.log("before send email");
+      sendTicketEmail(user);
+      console.log("After send email");
       res.send({ message: "ticket Added" });
     } else {
       res.send({ message: "Payment Failed" });
@@ -423,3 +427,62 @@ exports.ConfirmOTP = async (req, res) => {
     res.end({ message: error });
   }
 };
+
+function sendTicketEmail(user) {
+  console.log("in send ticket email");
+  console.log(user);
+  let movie = ticket.movie;
+  console.log(ticket.movie);
+  let date = ticket.date;
+  let time = ticket.time_slot;
+  let seats = ticket.seats;
+  let totalPrice = ticket.price;
+
+  http: var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "grp43acts@gmail.com",
+      pass: "xroxepntlakbaoyq",
+    },
+  });
+
+  var mailOptions = {
+    from: "grp43acts@gmail.com",
+    to: user.email,
+    subject: "Ticket Booked",
+    text: `Ticket for ${movie} booked`,
+    html: `<!doctype html>
+    <html ⚡4email>
+      <head>
+        <meta charset="utf-8">
+        
+      </head>
+      <body>
+        <h1>Ticket Comfirm <h1> 
+        <br></br>
+        <p>
+        Movie : ${movie}
+        </p>
+        <p>
+        Date : ${date}
+        </p>
+         <p>
+        Time : ${time}
+        </p>
+        <p>
+        Seat : ${seats}
+        </p>
+        <p>
+        Total price : ${totalPrice}
+        </p> 
+      </body>
+    </html>`,
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Ticket send on Email");
+    }
+  });
+}
