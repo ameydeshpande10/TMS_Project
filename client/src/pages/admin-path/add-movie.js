@@ -153,7 +153,7 @@ export const AddMovie = () => {
                     onChange={handleInputs}
                   />
                 </div>
-                <div className="col">
+                {/* <div className="col">
                   <label className="form-label">Availabe from</label>
                   <input
                     type="date"
@@ -174,9 +174,9 @@ export const AddMovie = () => {
                     required
                     onChange={handleInputs}
                   />
-                </div>
+                </div> */}
               </div>
-              <div className="row">
+              {/* <div className="row">
                 <div className="col">
                   <label className="form-label">First Show</label>
                   <input
@@ -199,7 +199,7 @@ export const AddMovie = () => {
                     onChange={handleInputs}
                   />
                 </div>
-              </div>
+              </div> */}
               {/* <div className="row">
                                 <input type="file" className="form-control" name="image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onChange={handleInputs} />
                                 <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
