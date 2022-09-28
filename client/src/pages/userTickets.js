@@ -23,7 +23,6 @@ export const UserTickets = () => {
     }
 
     getTickets();
-    console.log(tickets);
   });
 
   const RenderTicket = () => {

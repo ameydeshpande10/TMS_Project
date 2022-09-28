@@ -9,13 +9,11 @@ export const UserDetails = () => {
     date_of_birth: null,
     contact_number: null,
   });
-  console.log(user);
 
   useEffect(() => {
     async function getdetails(e) {
       try {
         await axios.get("http://localhost:3001/user/details").then((res) => {
-          //console.log(res.data.name);
           setUser({
             name: res.data.name,
             email: res.data.email,
@@ -88,7 +86,9 @@ export const UserDetails = () => {
                       <div className="row pt-1">
                         <div className="col-12 mb-3">
                           <h6>Date of Birth</h6>
-                          <p className="text-muted">{user.date_of_birth}</p>
+                          <p className="text-muted">
+                            {user.date_of_birth.split("T")[0]}
+                          </p>
                         </div>
                       </div>
                     </div>

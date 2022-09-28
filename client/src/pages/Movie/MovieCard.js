@@ -2,9 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import MovieData from "./MovieData";
 import Cookies from "js-cookie";
-import Axios from "axios";
 
-export function MovieCard(props) {
+export function MovieCard() {
   var adminCheck = localStorage.getItem("Admin");
 
   const movies = MovieData();
@@ -29,17 +28,6 @@ export function MovieCard(props) {
         }
       };
 
-      // var base64 = btoa(
-      //   new Uint8Array(data.image.data).reduce(
-      //     (data, byte) => data + String.fromCharCode(byte),
-      //     ""
-      //   )
-      // );
-      // const handleChange = (event) => {
-      //   if (button !== "Movie Details") {
-      //     Axios.delete(`/delmovie/${id}`);
-      //   }
-      // };
       return (
         <>
           <div key={name} className="">
@@ -89,85 +77,6 @@ export function MovieCard(props) {
           </div>
         </>
       );
-      // if (props.data !== "Movie Details") {
-      //   return (
-      //     <>
-      //       <div
-      //         key={name}
-      //         className="card mt-5 me-5"
-      //         style={{
-      //           borderTopLeftRadius: "5rem",
-      //           borderBottomLeftRadius: "5rem",
-      //         }}
-      //       >
-      //         <div className="card-body shadow">
-      //           <p className="text-capitalize">
-      //             <label className="me-2 fw-bold">Movie:</label>
-      //             {name}
-      //           </p>
-      //           <p>
-      //             <label className="me-2 fw-bold">Actors:</label>
-      //             {actors_name}
-      //           </p>
-      //           <p>
-      //             <label className="me-2 fw-bold">Director:</label>
-      //             {director}
-      //           </p>
-      //           <button className={button_class} onClick={handleChange}>
-      //             {button}
-      //           </button>
-      //         </div>
-      //       </div>
-      //     </>
-      //   );
-      // } else {
-      //   return (
-      //     <>
-      //       <div key={name} className="">
-      //         <div
-      //           className="card mt-5 rounded "
-      //           style={{
-      //             borderTopLeftRadius: "5rem",
-      //             borderBottomLeftRadius: "5rem",
-      //           }}
-      //         >
-      //           <img
-      //             src={image}
-      //             className="card-img-top card_image p-2"
-      //             alt="Not found"
-      //           />
-      //           <div className="card-body shadow pl-4">
-      //             <div className="align-items-center justify-content-center p-2">
-      //               <p className="text-capitalize ">
-      //                 <label className="me-2 fw-bold">
-      //                   <h4>
-      //                     <b>{name}</b>
-      //                   </h4>
-      //                 </label>
-      //               </p>
-      //               <p>
-      //                 <label className="me-2 fw-bold">Actors:&nbsp;</label>
-      //                 {actors_name}
-      //               </p>
-      //               <p>
-      //                 <label className="me-2 fw-bold">Director:&nbsp;</label>
-      //                 {director}
-      //               </p>
-      //             </div>
-      //             <br></br>
-
-      //             <div className="align-items-center justify-content-between">
-      //               <NavLink to={`/${url}/${id}`} className={button_class}>
-      //                 {button}
-      //               </NavLink>
-      //               <RenderBookTicketButton></RenderBookTicketButton>
-      //             </div>
-      //           </div>
-      //         </div>
-      //       </div>
-      //     </>
-      //   );
-      // }
     });
     return [allMovies];
   } catch (e) {

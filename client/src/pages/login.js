@@ -4,12 +4,11 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { UserContext } from "../App";
-export var [name] = "user";
 
 export const Login = () => {
   const navigate = useNavigate();
   const { dispatch } = useContext(UserContext);
-  //const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -26,13 +25,8 @@ export const Login = () => {
           password: password,
         })
         .then((res) => {
-          const Name = res.data.name;
-
-          setName(Name);
-
-          console.log(res);
-          // console.log(res.data.error);
-
+          setName(res.data.name);
+          console.log(res.data.name);
           setMessage(res.data.message);
           setHaveMessage(true);
           setStatus(res.status);
@@ -44,19 +38,12 @@ export const Login = () => {
     }
   }
 
-  function setName(n) {
-    localStorage.setItem("Name", n);
-    name = n;
-  }
-  function setAdmin() {
-    localStorage.setItem("Admin", "Admin");
-  }
-
   const RenderMessage = () => {
     if (haveMessage) {
       if (message === "Login successful") {
         dispatch({ type: "USER", payload: true });
         Cookies.set("loggedIn", "true");
+        localStorage.setItem("Name", name);
         setTimeout(() => navigate("/Movies"), 1000);
 
         return (
@@ -65,7 +52,7 @@ export const Login = () => {
           </div>
         );
       } else if (status === 201) {
-        setAdmin();
+        localStorage.setItem("Admin", "Admin");
         console.log("Admin login successful");
         Cookies.set("loggedIn", "true");
         dispatch({ type: "ADMIN", payload: true });
@@ -81,26 +68,11 @@ export const Login = () => {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        margin: "10% auto",
-        boxShadow: "0px 0px 10px black",
-        width: "30vw",
-        padding: "35px",
-      }}
-      className="container-fluid d-flex justify-content-center"
-    >
-      <form onSubmit={postLogin}>
+    <div className="container mt-5 col-4 justify-content-center user-login p-4 bg-white shadow-lg mb-5 bg-body rounded">
+      <form className="form-control col-12 border-0" onSubmit={postLogin}>
         <div className="mb-3">
           <label className="form-label">Email address</label>
           <input
-            style={{
-              backgroundColor: "whitesmoke",
-              //width: "35vw",
-              //padding: "20px",
-              color: "grey",
-            }}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
@@ -110,12 +82,6 @@ export const Login = () => {
         <div className="mb-3">
           <label className="form-label ">Password</label>
           <input
-            style={{
-              backgroundColor: "whitesmoke",
-              //width: "35vw",
-              //padding: "20px",
-              color: "grey",
-            }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
@@ -123,15 +89,8 @@ export const Login = () => {
           />
         </div>
         <br></br>
-        <button
-          style={{
-            width: "25vw",
-            padding: "10px",
-          }}
-          type="submit"
-          className="btn btn-primary"
-        >
-          Sign In
+        <button type="submit" className="btn btn-primary p-2 col-12">
+          Log In
         </button>
         <br></br>
         <br></br>
@@ -144,35 +103,3 @@ export const Login = () => {
     </div>
   );
 };
-
-export default Login;
-
-/*
-<div>
-      <form onSubmit={postLogin}>
-        <div class="form-outline mb-4">
-          <input
-            className="form-control"
-            type={Text}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
-        <br></br>
-        <div class="form-outline mb-4">
-          <input
-            className="form-control"
-            type={password}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <br></br>
-        <button className="btn" type="submit">
-          Login
-        </button>
-      </form>
-      {message && <div>{message}</div>}
-      </div>
-*/
