@@ -458,7 +458,7 @@ function sendTicketEmail(user) {
         
       </head>
       <body>
-        <h1>Ticket Comfirm <h1> 
+        <h1>Ticket Confirm <h1> 
         <br></br>
         <p>
         Movie : ${movie}

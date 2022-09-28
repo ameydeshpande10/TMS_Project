@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Nav, NavLink, Bars, NavMenu, NavBtnLink } from "./NavbarElements";
-import { UserDropDown } from "./userDropDown";
-import { navItems } from "./userSubItems";
+import { Nav, NavLink, Bars, NavMenu, NavBtnLink } from "./navbar-elements";
+import { UserDropDown } from "./user-drop-down";
+import { navItems } from "./user-sub-Items";
 import Cookies from "js-cookie";
-import "./Dropdown.css";
+import "./dropdown.css";
 
 // import { UserContext } from "../../App";
-import { AdminDropDown } from "./AdminDropDown/AdminDropDown";
+import { AdminDropDown } from "./admin-drop-down";
 
 export const Navbar = () => {
   // const { state, dispatch } = useContext(UserContext);

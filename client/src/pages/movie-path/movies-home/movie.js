@@ -1,8 +1,8 @@
-import "./Movie.css";
+import "../movies.css";
 import React from "react";
-import { MovieCard } from "./MovieCard";
+import { MovieCard } from "./movie-card";
 
-const Movie = () => {
+export const Movies = () => {
   return (
     <div className="container  movie_container">
       <div className="movie_cards">
@@ -11,5 +11,3 @@ const Movie = () => {
     </div>
   );
 };
-
-export default Movie;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useParams, NavLink } from "react-router-dom";
-import MovieDetailsIndividual from "./MovieDetailsIndividual";
+import MovieDetailsIndividual from "./movie-details-individual";
 
 export const MovieDetails = () => {
   const params = useParams();

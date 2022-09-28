@@ -7,38 +7,38 @@ import axios from "axios";
 import { reducer, initialstate } from "./reducer/useReducer";
 
 // Homepage
-import { Home } from "./pages/index";
+import { Movies } from "./pages/movie-path/movies-home/movie";
 
 // Navbar
-import { Navbar } from "./components/Navbar/Navbar";
+import { Navbar } from "./components/navbar/navbar";
 
 // User-path
-import { Signup } from "./pages/signup";
-import { Login } from "./pages/login";
-import { Logout } from "./pages/logout";
+import { Signup } from "./pages/user-path/signup";
+import { Login } from "./pages/user-path/login";
+import { Logout } from "./pages/user-path/logout";
 //User-path-show-details
-import { UserDetails } from "./pages/userDetails";
-import { UserTickets } from "./pages/userTickets";
+import { UserDetails } from "./pages/user-path-details/user-details";
+import { UserTickets } from "./pages//user-path-details/user-tickets";
 //User-path-password-reset
-import { ForgotPassword } from "./pages/ForgotPassword";
-import { ResetPassword } from "./pages/ResetPassword";
+import { ForgotPassword } from "./pages/user-path-password-reset/forgot-password";
+import { ResetPassword } from "./pages/user-path-password-reset/reset-password";
 //User-path-book-ticket
 import { TicketBooking } from "./pages/Ticket-Booking/TicketBooking";
 import { TicketPayment } from "./pages/Ticket-Booking/TicketPayment";
 import { BookMySeats } from "./pages/Ticket-Booking/BookMySeats";
 
 // Admin-path
-import { AddMovie } from "./pages/Admin-path/AddMovie";
-import { DeleteMovie } from "./pages/Admin-path/DeleteMovie";
-import { AddShows } from "./pages/Admin-path/AddShows";
+import { AddMovie } from "./pages/admin-path/add-movie";
+import { DeleteMovie } from "./pages/admin-path/delete-movie";
+import { AddShows } from "./pages/admin-path/add-shows";
 
 // Other
-import { Aboutus } from "./pages/aboutus";
+import { Aboutus } from "./pages/other/about-us";
 
 // Mvoie-path
-import { MovieDetails } from "./pages/Movie/MovieDetails";
-import { UpcomingMovies } from "./pages/Movie/UpcomingMovies";
-import { UpcomingMoviesDisplay } from "./pages/Movie/UpcomingMoviesDisplay";
+import { MovieDetails } from "./pages/movie-path/movie-details/movie-details";
+import { UpcomingMovies } from "./pages/movie-path/movies-upcoming/upcoming-movies";
+import { UpcomingMoviesDisplay } from "./pages/movie-path/movies-upcoming/upcoming-movies-display";
 
 // Axios setup
 axios.defaults.withCredentials = true;
@@ -55,8 +55,8 @@ const App = () => {
           <Navbar />
 
           <Routes>
-            <Route path="/Movies" exact element={<Home />} />
-            <Route path="/" exact element={<Home />} />
+            <Route path="/Movies" exact element={<Movies />} />
+            <Route path="/" exact element={<Movies />} />
             <Route path="/signin" element={<Login />} />
             <Route path="/sign-up" element={<Signup />} />
             <Route path="/user_details" element={<UserDetails />} />

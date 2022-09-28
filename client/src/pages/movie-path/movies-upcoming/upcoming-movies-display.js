@@ -1,6 +1,6 @@
-import "./Movie.css";
+import "./movies.css";
 import React from "react";
-import { UpcomingMovies } from "./UpcomingMovies";
+import { UpcomingMovies } from "./upcoming-movies";
 
 export const UpcomingMoviesDisplay = () => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import MovieData from "./MovieData";
+import MovieData from "./movie-data";
 import Cookies from "js-cookie";
 
 export function MovieCard() {

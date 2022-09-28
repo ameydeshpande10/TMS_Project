@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./AdminPath.css";
+import "./admin-path.css";
 //import { ConfirmDeletePopUp } from "./ConfirmDeletePopUp";
 
 export const DeleteMovie = () => {
