@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Seats } from "./Seats";
+import { Seats } from "./seats";
 import { useNavigate, useParams, NavLink } from "react-router-dom";
 import MovieDetailsIndividual from "../movie-path/movie-details/movie-details-individual";
 

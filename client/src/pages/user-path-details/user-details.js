@@ -86,9 +86,7 @@ export const UserDetails = () => {
                       <div className="row pt-1">
                         <div className="col-12 mb-3">
                           <h6>Date of Birth</h6>
-                          <p className="text-muted">
-                            {user.date_of_birth.split("T")[0]}
-                          </p>
+                          <p className="text-muted">{user.date_of_birth}</p>
                         </div>
                       </div>
                     </div>

@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import MovieData from "./MovieData";
+import MovieData from "../movies-home/movie-data";
 import Axios from "axios";
-import "./movies.css";
+import "../movies.css";
 
 export const UpcomingMovies = (props) => {
   const button = "Movie Details";

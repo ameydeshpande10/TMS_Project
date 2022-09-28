@@ -23,9 +23,8 @@ import { UserTickets } from "./pages//user-path-details/user-tickets";
 import { ForgotPassword } from "./pages/user-path-password-reset/forgot-password";
 import { ResetPassword } from "./pages/user-path-password-reset/reset-password";
 //User-path-book-ticket
-import { TicketBooking } from "./pages/Ticket-Booking/TicketBooking";
-import { TicketPayment } from "./pages/Ticket-Booking/TicketPayment";
-import { BookMySeats } from "./pages/Ticket-Booking/BookMySeats";
+import { TicketBooking } from "./pages/user-path-ticket-booking/ticket-booking";
+import { TicketPayment } from "./pages/user-path-ticket-booking/ticket-payment";
 
 // Admin-path
 import { AddMovie } from "./pages/admin-path/add-movie";

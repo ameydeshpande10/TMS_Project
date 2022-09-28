@@ -1,4 +1,4 @@
-import "./movies.css";
+import "../movies.css";
 import React from "react";
 import { UpcomingMovies } from "./upcoming-movies";
 

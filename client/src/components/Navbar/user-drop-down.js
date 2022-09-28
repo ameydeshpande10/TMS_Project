@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "./navbar-elements";
 import { userDropDown } from "./user-sub-Items";
 import "./dropdown.css";
