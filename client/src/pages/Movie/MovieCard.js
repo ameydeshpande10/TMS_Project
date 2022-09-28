@@ -94,16 +94,17 @@ function MovieCard(props) {
           <>
             <div key={name} className="">
               <div
-                className="card mt-5 rounded"
+                className="card mt-5 rounded "
                 style={{
                   borderTopLeftRadius: "5rem",
                   borderBottomLeftRadius: "5rem",
                 }}
               >
                 {/* <img src={`data:image/png;base64,${base64}`} className="card-img-top card_image" alt="Not found" /> */}
+
                 <img
                   src={image}
-                  className="card-img-top card_image"
+                  className="card-img-top card_image p-2"
                   alt="Not found"
                 />
                 <div className="card-body shadow pl-4">
@@ -124,8 +125,9 @@ function MovieCard(props) {
                       {director}
                     </p>
                   </div>
+                  <br></br>
 
-                  <div className="align-items-center justify-content-around ">
+                  <div className="align-items-center justify-content-between">
                     <NavLink to={`/${url}/${id}`} className={button_class}>
                       {button}
                     </NavLink>

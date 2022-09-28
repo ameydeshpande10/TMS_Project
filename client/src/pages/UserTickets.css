@@ -54,11 +54,11 @@ h1 {
 
 .date {
   display: table-cell;
-  width: 300px;
+  width: 350px;
 
   position: relative;
   text-align: center;
-  border-right: 2px dashed #dadde6;
+  border-right: 4px dashed #dadde6;
 }
 
 .date:before,
@@ -86,6 +86,7 @@ h1 {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 80%;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -109,7 +110,7 @@ h1 {
 
 .card-cont {
   display: table-cell;
-  width: 75%;
+  width: 70%;
   font-size: 85%;
   padding: 10px 10px 30px 50px;
 }

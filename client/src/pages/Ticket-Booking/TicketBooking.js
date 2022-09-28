@@ -410,40 +410,46 @@ export const TicketBooking = () => {
       <>
         <div className="conatiner p-2  d-flex justify-content-center align-items-center">
           <div className="conatiner  ">
-            <div className="card ">
+            <div className="cards">
               <div className="form-control">
                 <div className="row">
-                  <div className="col">
+                  <div className="col  d-flex ">
                     <img
                       src={image}
-                      className="card-img p-1"
-                      style={{ height: "550px" }}
+                      className="card-img "
+                      style={{ height: "450px", width: "400px" }}
                       alt="..."
                     />
                   </div>
-                  <div className="col">
+                  <div className="col mt-4">
                     <div className="card-body h-50">
-                      <h5
+                      <p
                         className="card-title"
                         style={{ textTransform: "capitalize" }}
                       >
-                        <label className="me-2 fw-bold">Title:</label>
-                        {name}
-                      </h5>
+                        <h2>{name}</h2>
+                      </p>
                       <br></br>
                       <p className="card-text">
-                        <label className="me-2 fw-bold">Certification:</label>
+                        <label className="me-2 fw-bold">
+                          Certification:&nbsp;
+                        </label>
                         {certification}
                       </p>
                       <p className="card-text">
-                        <label className="me-2 fw-bold">Movie length:</label>
+                        <label className="me-2 fw-bold">
+                          Movie length:&nbsp;
+                        </label>
                         {movie_length}
                       </p>
                       <p className="card-text">
-                        <label className="me-2 fw-bold">Release Date:</label>
+                        <label className="me-2 fw-bold">
+                          Release Date:&nbsp;
+                        </label>
                         {release_date}
                       </p>
                       <hr className="border border-primary border-3 opacity-75"></hr>
+                      <p className="card-text">Select Date</p>
                       <input
                         type="date"
                         id="birthday"
@@ -487,10 +493,7 @@ export const TicketBooking = () => {
                         onChange={(e) => setNumberOfSeats(e.target.value)}
                       />
                       <br></br>
-                      <button className="btn ">Select seats</button>
 
-                      <br></br>
-                      <br></br>
                       {/* <button
                         type="input"
                         className="btn "
@@ -501,13 +504,20 @@ export const TicketBooking = () => {
                     </div>
                   </div>
                 </div>
-                <div className="row align-content-center ml-5">
+                <div className="row  ">
+                  {/* //justify-content-center align-items-center 
+                  
+                  1. row d-flex justify-content-center
+                  2. d-flex  justify-content-center
+                  3. "card-seat " style={{ width: "80vw" }}
+                  4. card-seat d-flex justify-content-center align-items-center 
+                  */}
                   {
                     <div>
-                      <div className="row d-flex justify-content-center">
+                      <div className="pl-4  d-flex justify-content-center">
                         <div className="d-flex  justify-content-center">
-                          <div className="card " style={{ width: "80vw" }}>
-                            <div className="card  p-5 d-flex justify-content-center align-items-center ">
+                          <div className="card-seat " style={{ width: "80vw" }}>
+                            <div className="card-seat  justify-content-center align-items-center ">
                               <h4>Platinum:{platinumRate}</h4>
                               <Seats
                                 values={platinumSeats}
@@ -517,10 +527,7 @@ export const TicketBooking = () => {
                                 addSeat={addSeat}
                               />
                             </div>
-                            <div
-                              className="card p-5 d-flex justify-content-center align-items-center"
-                              style={{ width: "68vw" }}
-                            >
+                            <div className="card-seat  justify-content-center align-items-center ">
                               <h4>Gold:{goldRate}</h4>
                               <Seats
                                 values={goldSeats}
@@ -530,10 +537,7 @@ export const TicketBooking = () => {
                                 addSeat={addSeat}
                               />
                             </div>
-                            <div
-                              className="card p-5 d-flex justify-content-center align-items-center"
-                              style={{ width: "68vw" }}
-                            >
+                            <div className="card-seat  justify-content-center align-items-center ">
                               <h4>Silver:{silverRate}</h4>
                               <Seats
                                 values={silverSeats}
@@ -546,6 +550,7 @@ export const TicketBooking = () => {
                           </div>
                         </div>
                       </div>
+                      <br></br>
                       <div className="row d-flex justify-content-center">
                         <div className="col-1">
                           <button

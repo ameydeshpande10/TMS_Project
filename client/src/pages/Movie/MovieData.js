@@ -12,13 +12,13 @@ export default function MovieData() {
       .catch((err) => console.log(err));
   });
 
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      const dbMovies = await Axios.get("http://localhost:3001/movies");
-      setData(dbMovies.data);
-    }, 5000);
-    return () => clearInterval(interval);
-  });
+  // useEffect(() => {
+  //   const interval = setInterval(async () => {
+  //     const dbMovies = await Axios.get("http://localhost:3001/movies");
+  //     setData(dbMovies.data);
+  //   }, 5000);
+  //   return () => clearInterval(interval);
+  // });
   //console.log(data);
   return data;
 }

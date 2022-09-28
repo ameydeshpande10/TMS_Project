@@ -48,23 +48,23 @@ export const MovieDetails = () => {
 
     return (
       <>
-        <div
-          key={name}
-          className="conatiner p-1  d-flex justify-content-center align-items-center"
-        >
-          {/*mt-5 p-2 */}
+        <div className="conatiner pt-2 ml-auto mr-auto col-10 d-flex justify-content-center align-items-center">
+          <div
+            key={name}
+            className="conatiner pt-2 ml-auto mr-auto col-10 d-flex justify-content-center align-items-center"
+          >
+            {/*mt-5 p-2 */}
 
-          <div className="conatiner col-8 ">
-            <div className="card ">
-              <div className="row">
-                <div className="col">
+            <div className="conatiner col-10 ">
+              <div className="cards d-flex col-10">
+                <div className="col-8">
                   <img
                     src={image}
-                    className="card-img-top p-2 card_image "
+                    className="card-img-top p-2 card_image img-fluid"
                     alt="..."
                   />
                 </div>
-                <div className="col">
+                <div className="col bg-white">
                   <div className="card-body h-50">
                     <p
                       className="card-title"
@@ -102,9 +102,8 @@ export const MovieDetails = () => {
                     </p>
                     <p className="card-text">
                       <label className="me-2 fw-bold">
-                        Release Date:&nbsp;
+                        Release Date:&nbsp; {release_date.split("T")[0]}
                       </label>
-                      <span>{release_date}</span>
                     </p>
                     {/* <p className="card-text">
                       <label className="me-2 fw-bold">
@@ -124,11 +123,7 @@ export const MovieDetails = () => {
                       <label className="me-2 fw-bold">Second show: </label>
                       {second_show}
                     </p> */}
-                    <p className="card-text">
-                      <label className="me-2 fw-bold">
-                        Released on: {release_date.split("T")[0]}
-                      </label>
-                    </p>
+
                     <RenderBookTicketButton />
                   </div>
                 </div>

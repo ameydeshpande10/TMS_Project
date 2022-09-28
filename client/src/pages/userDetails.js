@@ -9,13 +9,7 @@ export const UserDetails = () => {
     date_of_birth: null,
     contact_number: null,
   });
-  // const state = {
-  //   name: null,
-  //   email: null,
-  //   address: null,
-  //   date_of_birth: null,
-  //   contact_number: null,
-  // };
+  console.log(user);
 
   useEffect(() => {
     async function getdetails(e) {
@@ -49,7 +43,10 @@ export const UserDetails = () => {
         >
           <div className="row justify-content-center align-items-center ">
             <div className="col col-lg-10 mb-4 mb-lg-0">
-              <div className="card mb-3" style={{ borderRadius: ".5rem" }}>
+              <div
+                className="card-userDetails mb-3"
+                style={{ borderRadius: ".5rem" }}
+              >
                 <div className="row g-0">
                   <div
                     className="col-md-4 gradient-custom text-center text-white"
@@ -58,8 +55,6 @@ export const UserDetails = () => {
                       borderBottomLeftRadius: ".5rem",
                     }}
                   >
-                    <h5>Marie Horwitz</h5>
-                    <p>Web Designer</p>
                     <i className="far fa-edit mb-5"></i>
                   </div>
                   <div className="col-md-8">
