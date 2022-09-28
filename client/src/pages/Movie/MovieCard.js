@@ -94,7 +94,7 @@ function MovieCard(props) {
           <>
             <div key={name} className="">
               <div
-                className="card mt-5 me-5 rounded"
+                className="card mt-5 rounded"
                 style={{
                   borderTopLeftRadius: "5rem",
                   borderBottomLeftRadius: "5rem",
@@ -125,7 +125,7 @@ function MovieCard(props) {
                     </p>
                   </div>
 
-                  <div className="align-items-center justify-content-around d-flex">
+                  <div className="align-items-center justify-content-around ">
                     <NavLink to={`/${url}/${id}`} className={button_class}>
                       {button}
                     </NavLink>

@@ -1,9 +1,10 @@
 .card {
   align-items: center;
+  width: 300px;
 }
 
 .card_image {
-  height: 300px;
+  height: 30vh;
   width: 250px;
 }
 
@@ -18,8 +19,8 @@
 }
 
 .card-body {
-  width: 25vw;
-  height: 30vh;
+  width: 300px;
+  height: 300px;
   padding: 15px;
 }
 .card-body-user-details {
