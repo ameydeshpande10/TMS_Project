@@ -51,6 +51,9 @@ export const UserTickets = () => {
               <div className="col-5 ">
                 <h3>{ticket.tickets}</h3>
               </div>
+              <div className="col-5 ">
+                <h3>Total: &nbsp;{ticket.price}</h3>
+              </div>
             </section>
           </article>
         </div>

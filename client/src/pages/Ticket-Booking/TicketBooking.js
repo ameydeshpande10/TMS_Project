@@ -210,75 +210,24 @@ export const TicketBooking = () => {
     }
   }
 
-  //Render seat select popup
-
-  // useEffect(() => {
-  //   const RenderSeatSelect = () => {
-  //     return (
-  //       <div>
-  //         <div className="row d-flex justify-content-center">
-  //           <div className="d-flex justify-content-center">
-  //             <div className="card p-2" style={{ width: "80vw" }}>
-  //               <div
-  //                 className="card d-flex justify-content-center align-items-center"
-  //                 style={{ width: "68vw" }}
-  //               >
-  //                 <h4>Platinum:{platinumRate}</h4>
-  //                 <Seats
-  //                   values={platinumSeats}
-  //                   availableSeats={availableSeats}
-  //                   unAvailableSeats={unAvailableSeats}
-  //                   bookedSeats={bookedSeats}
-  //                   addSeat={addSeat}
-  //                 />
-  //               </div>
-  //               <div
-  //                 className="card d-flex justify-content-center align-items-center"
-  //                 style={{ width: "68vw" }}
-  //               >
-  //                 <h4>Gold:{goldRate}</h4>
-  //                 <Seats
-  //                   values={goldSeats}
-  //                   availableSeats={availableSeats}
-  //                   unAvailableSeats={unAvailableSeats}
-  //                   bookedSeats={bookedSeats}
-  //                   addSeat={addSeat}
-  //                 />
-  //               </div>
-  //               <div
-  //                 className="card d-flex justify-content-center align-items-center"
-  //                 style={{ width: "68vw" }}
-  //               >
-  //                 <h4>Silver:{silverRate}</h4>
-  //                 <Seats
-  //                   values={silverSeats}
-  //                   availableSeats={availableSeats}
-  //                   unAvailableSeats={unAvailableSeats}
-  //                   bookedSeats={bookedSeats}
-  //                   addSeat={addSeat}
-  //                 />
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //         <div className="row d-flex justify-content-center">
-  //           <div className="col-1">
-  //             <button className="btn btn-primary">
-  //               {/* onClick={confirm_booking} */}
-  //               Book seats
-  //             </button>
-  //           </div>
-  //           <div className="row text-center">
-  //             <p>{bookedStatus}</p>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     );
-  //   };
-  //   RenderSeatSelect();
-  // }, [platinumRate]);
-
   const confirm_booking = () => {
+    const calculateTotalFare = () => {
+      var fare = 0;
+      bookedSeats.forEach((seat) => {
+        if (seat.split("-")[0] == "P") {
+          fare = fare + parseInt(platinumRate);
+          //console.log(fare);
+        } else if (seat.split("-")[0] == "S") {
+          fare = fare + parseInt(silverRate);
+        } else if (seat.split("-")[0] == "G") {
+          fare = fare + parseInt(goldRate);
+        }
+      });
+      return fare;
+    };
+    const total = calculateTotalFare();
+    console.log(total);
+
     try {
       if (bookedSeats.length > 0) {
         axios
@@ -288,6 +237,7 @@ export const TicketBooking = () => {
             time_slot: ticketTime,
             seats: bookedSeats,
             tickets: numberOfSeats,
+            price: total,
           })
           .then((res) => {
             console.log(res.data);

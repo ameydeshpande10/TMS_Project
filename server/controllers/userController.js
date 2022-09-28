@@ -321,7 +321,7 @@ exports.UpdateTicket = async (req, res) => {
     var user = await User.findOne({
       email: email,
     });
-    console.log(id);
+
     var cmovie = await movie.findOne({
       _id: id,
     });
@@ -338,9 +338,12 @@ exports.UpdateTicket = async (req, res) => {
       time_slot: req.body.time_slot,
       tickets: req.body.tickets,
       seats: seatString,
+      price: req.body.price,
     };
+    console.log(ticket);
 
     otp = Math.floor(100000 + Math.random() * 900000);
+    console.log(otp);
 
     http: var transporter = nodemailer.createTransport({
       service: "gmail",

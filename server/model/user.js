@@ -24,6 +24,7 @@ const User = new mongoose.Schema({
       time_slot: String,
       tickets: String,
       seats: String,
+      price: Number,
     },
   ],
   tokens: [
